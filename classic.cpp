@@ -1,4 +1,3 @@
-// C++ Header for Programming: Principles and Practice
 #include "std_lib_facilities.h"
 
 int main() {

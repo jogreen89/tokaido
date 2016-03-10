@@ -1,5 +1,5 @@
 # (c) 2016 zubernetes
-SOURCES = timing.cpp
-EXECUTABLE = timing 
+SOURCES = threads.cpp
+EXECUTABLE = threads 
 
 all: $(SOURCES) $(EXECUTABLE)
