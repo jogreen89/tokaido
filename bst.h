@@ -5,6 +5,9 @@
 #ifndef BST_H
 #define BST_H
 
+#include<stdio.h>
+#include<stdlib.h>
+
 struct Node {
 	int key;
 	Node *left;
@@ -12,9 +15,15 @@ struct Node {
 	Node *parent;
 };
 
+struct Date {
+    int y;
+    int m;
+    int d;
+};
+
 class BST {
 public:
-	BST();
+BST();
 	// ~BST();				  // destructor deletes all nodes 
 
 	void insertNode(Node *n); // inserts a node n into the tree

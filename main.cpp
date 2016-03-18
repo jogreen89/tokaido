@@ -5,13 +5,12 @@
 #include "bst.h"
 
 int main(int argc, char **argv) {
-	bst t;
-	/*
-        Node newNode;
-        newNode.key = 9;
-        newNode.left = newNode.right = newNode.parent = NULL:
-	*/
-	t.insertNode(newNode);
-	
+    Node newNode;
+    newNode.key = 9;
+    newNode.left = newNode.right = newNode.parent = NULL;
+
+    const Date today {12, 24, 2007};
+    
+
 	return 0;
 }
