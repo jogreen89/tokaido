@@ -15,16 +15,15 @@ struct Node {
 	Node *parent;
 };
 
-struct Date {
-    int y;
-    int m;
-    int d;
-};
-
 class BST {
 public:
-BST();
+    BST();
 	// ~BST();				  // destructor deletes all nodes 
+
+    // Helper methods
+    Node* getRoot();
+    int   getSize();
+    void  print();            // sanity check
 
 	void insertNode(Node *n); // inserts a node n into the tree
 	int deleteNode(int z); 	  // deletes the first node with a value x
@@ -36,7 +35,31 @@ private:
 	int size;	// number of nodes in the tree
 };
 
-BST::BST() { }
-void BST::insertNode(Node *n) { }
+BST::BST() {
+    /* An empty BST() */
+    root = NULL;
+    size = 0;
+}
+
+// Helper Methods
+
+void BST::print() {
+    printf("Hello, World.\n");
+}
+
+Node* BST::getRoot() {
+    return root;
+}
+
+int BST::getSize() {
+    return size;
+}
+
+void BST::insertNode(Node *n) {
+    if (getRoot() == NULL && getSize() == 0) {
+        root = n;
+        size++;
+    }
+}
 	
 #endif 

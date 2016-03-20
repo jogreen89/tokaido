@@ -5,12 +5,12 @@
 #include "bst.h"
 
 int main(int argc, char **argv) {
-    Node newNode;
-    newNode.key = 9;
-    newNode.left = newNode.right = newNode.parent = NULL;
+    Node* n = new Node(
 
-    const Date today {12, 24, 2007};
+    BST* b = new BST();
+    b->insertNode(&n);
     
-
+    printf("here is my root key : %d\n", b->getRoot()->key);
+    
 	return 0;
 }
