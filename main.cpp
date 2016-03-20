@@ -5,20 +5,25 @@
 #include "bst.h"
 
 int main(int argc, char **argv) {
-    Node m = {.key = 10, .left = NULL, .right = NULL, .parent = NULL };
-    Node n = {.key = 5, .left = NULL, .right = NULL, .parent = NULL };
+    Node m = {.key = 11, .left = NULL, .right = NULL, .parent = NULL };
+    Node n = {.key = 10, .left = NULL, .right = NULL, .parent = NULL };
     Node o = {.key = 15, .left = NULL, .right = NULL, .parent = NULL };
+    Node p = {.key = 12, .left = NULL, .right = NULL, .parent = NULL };
+    Node q = {.key = 27, .left = NULL, .right = NULL, .parent = NULL };
+    Node r = {.key = 25, .left = NULL, .right = NULL, .parent = NULL };
 
-    BST* b = new BST();
-    b->insertNode(&m);
+    m.left   = &n;
+    m.right  = &o;
     
-    printf("here is my key : %d\n", b->getRoot()->key);
-    printf("size of the bst : %d\n", b->getSize());
+    o.left   = &p;
+    o.right  = &q;
+    o.parent = &m;
 
-    b->insertNode(&n);
+    q.left   = &r;
+    q.parent = &o; 
     
-    printf("here is my key : %d\n", b->getRoot()->key);
-    printf("size of the bst : %d\n", b->getSize());
-
+    BST *b = new BST();
+    b->traverseinorder(&m);
+    
 	return 0;
 }
