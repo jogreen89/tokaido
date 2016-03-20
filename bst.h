@@ -22,8 +22,9 @@ public:
 
     // Helper methods
     Node* getRoot();
+    Node* getLeftChild(Node*);
     int   getSize();
-    void  print();            // sanity check
+    void  setLeftChild(Node*); 
 
 	void insertNode(Node *n); // inserts a node n into the tree
 	int deleteNode(int z); 	  // deletes the first node with a value x
@@ -43,12 +44,16 @@ BST::BST() {
 
 // Helper Methods
 
-void BST::print() {
-    printf("Hello, World.\n");
+void BST::setLeftChild(Node *n) {
+    root->left = n;
 }
 
 Node* BST::getRoot() {
     return root;
+}
+
+Node* BST::getLeftChild(Node *n) {
+    return n->left;
 }
 
 int BST::getSize() {
@@ -58,6 +63,16 @@ int BST::getSize() {
 void BST::insertNode(Node *n) {
     if (getRoot() == NULL && getSize() == 0) {
         root = n;
+        size++;
+    } else if (getRoot()->key < n->key) {
+        printf("Node n is <\n");
+        setLeftChild(n);
+        size++;
+    } else if (getRoot()->key > n->key) {
+        printf("Node n is >\n");
+        size++;
+    } else {
+        printf("Else block\n");
         size++;
     }
 }
