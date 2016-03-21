@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     q.parent = &o; 
     
     BST *b = new BST();
-    b->traverseinorder(&m);
+    b->traverseinorder();
     
 	return 0;
 }

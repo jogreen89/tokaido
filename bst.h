@@ -5,8 +5,8 @@
 #ifndef BST_H
 #define BST_H
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct Node {
 	int key;
@@ -33,14 +33,22 @@ public:
     void  setLeftChild(Node*); 
     void  setRightChild(Node*); 
     void  setParent(Node*);
+    void  setRoot(Node*);
 
     // Required methods (class)
 
-	void insertNode(Node *n);      // inserts a node n into the tree
-	unsigned int deleteNode(int z);// deletes the first node with a value x
-	unsigned int successor(int x); // returns the successor to the node x
-	void traverseinorder(Node*);   // prints the nodes in the tree in order
-	unsigned int findmax(Node*);   // returns the manimum value node in the tree
+	void insertNode(Node *n);       // inserts a node n into the tree
+	unsigned int deleteNode(int z); // deletes the first node with a value x
+	unsigned int successor(int x);  // returns the successor to the node x
+	unsigned int findmax();         // returns maximum value node in the tree
+
+    /* I think this is what he is looking */
+    /* for. Helper traverse(Node*) does   */
+    /* the work.                          */
+	void traverseinorder();         // prints the nodes in the tree in order
+    void traverse(Node*);
+    
+
 private:
 	Node *root;	                   // pointer to first node
 	int size;	                   // number of nodes in the tree
@@ -60,6 +68,10 @@ void BST::setLeftChild(Node *n) {
 
 void BST::setRightChild(Node *n) {
     root->right = n;
+}
+
+void BST::setRoot(Node *n) {
+    root = n;
 }
     
 Node* BST::getRoot() {
@@ -104,15 +116,20 @@ void BST::insertNode(Node *n) {
     }
 }
 
-void BST::traverseinorder(Node *n) {
+void BST::traverseinorder() {
+    Node *n = root;
+    traverse(n);
+}
+
+void BST::traverse(Node *n) {
     if (n != NULL) {
-        traverseinorder(n->left);
+        traverse(n->left);
         printf("key : %d\n",n->key);
         traverseinorder(n->right);
     }
-}
+} 
 
-unsigned int BST::findmax(Node *n) {
+unsigned int BST::findmax() {
     printf("findmax\n");
     return 5;
 }
