@@ -1,5 +1,5 @@
 # (c) 2016 zubernetes
-SOURCES = threads.cpp
-EXECUTABLE = threads 
+SOURCES = main.cpp
+EXECUTABLE = main 
 
 all: $(SOURCES) $(EXECUTABLE)

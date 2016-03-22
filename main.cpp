@@ -3,7 +3,7 @@
 // Simple main for testing C++ classes.
 // 2016 (c) zubernetes
 #include "bst.h"
-#include "binary_search.h"
+#include "heap_sort.h"
 
 int main(int argc, char **argv) {
     int max, successor;
