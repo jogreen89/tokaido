@@ -3,6 +3,7 @@
 // Simple main for testing C++ classes.
 // 2016 (c) zubernetes
 #include "bst.h"
+#include "binary_search.h"
 
 int main(int argc, char **argv) {
     int max, successor;
@@ -34,7 +35,7 @@ int main(int argc, char **argv) {
     //printf("max : %d\n", max);
 
     /* Sucessor test */
-    successor = b->successor(29);
+    successor = b->successor(15);
     printf("successor : %d\n", successor);
     
 	return 0;

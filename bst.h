@@ -18,6 +18,7 @@ struct Node {
 class BST {
 public:
     BST();
+    BST(Node*);
 	// ~BST();				        // destructor deletes all nodes 
 
     /* Helper methods */
@@ -33,9 +34,11 @@ public:
     void  setRoot(Node*);
 
     void  TRAVERSE(Node*);
+    void  TRANSPLANT(Node*,Node*);
     int   TREE_MAXIMUM(Node*);
     int   TREE_SUCCESSOR(Node*);
     Node* TREE_SEARCH(Node*,int);
+    
     
     /* Required methods */
 	void insertNode(Node*);         // inserts a node n into the tree
@@ -53,6 +56,11 @@ BST::BST() {
     /* An empty BST() */
     root = NULL;
     size = 0;
+}
+
+BST::BST(Node *n) {
+    /* Initialize BST() with root Node */
+    root = n;
 }
 
 // Helper Methods
