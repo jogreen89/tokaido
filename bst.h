@@ -21,12 +21,14 @@ public:
 	// ~BST();				        // destructor deletes all nodes 
 
     // Helper methods
+    void  traverse(Node*);
     Node* getRoot();
     Node* getLeftChild(Node*);
     Node* getRightChild(Node*);
     Node* getParent(Node*);
     unsigned int getKey(Node*);
     unsigned int getSize();
+    unsigned int TREE_MAXIMUM(Node*);
 
     // Helper methods (cont.)
 
@@ -41,12 +43,7 @@ public:
 	unsigned int deleteNode(int z); // deletes the first node with a value x
 	unsigned int successor(int x);  // returns the successor to the node x
 	unsigned int findmax();         // returns maximum value node in the tree
-
-    /* I think this is what he is looking */
-    /* for. Helper traverse(Node*) does   */
-    /* the work.                          */
 	void traverseinorder();         // prints the nodes in the tree in order
-    void traverse(Node*);
     
 
 private:
@@ -125,13 +122,19 @@ void BST::traverse(Node *n) {
     if (n != NULL) {
         traverse(n->left);
         printf("key : %d\n",n->key);
-        traverseinorder(n->right);
+        traverse(n->right);
     }
 } 
 
 unsigned int BST::findmax() {
     printf("findmax\n");
     return 5;
+}
+
+unsigned int BST::TREE_MAXIMUM(Node *n) {
+    while (n->right != NULL)
+        n = n->right;
+    return (unsigned int)n->key; 
 }
 
 #endif 

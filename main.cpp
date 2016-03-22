@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
     q.parent = &o; 
     
     BST *b = new BST();
+    /* Set the root of b */
+    b->setRoot(&m);
     b->traverseinorder();
     
 	return 0;
