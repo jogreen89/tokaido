@@ -20,31 +20,29 @@ public:
     BST();
 	// ~BST();				        // destructor deletes all nodes 
 
-    // Helper methods
-    void  traverse(Node*);
+    /* Helper methods */
     Node* getRoot();
     Node* getLeftChild(Node*);
     Node* getRightChild(Node*);
     Node* getParent(Node*);
-    unsigned int getKey(Node*);
-    unsigned int getSize();
-    unsigned int TREE_MAXIMUM(Node*);
-
-    // Helper methods (cont.)
-
+    int   getKey(Node*);
+    int   getSize();
     void  setLeftChild(Node*); 
     void  setRightChild(Node*); 
     void  setParent(Node*);
     void  setRoot(Node*);
 
-    // Required methods (class)
-
-	void insertNode(Node *n);       // inserts a node n into the tree
-	unsigned int deleteNode(int z); // deletes the first node with a value x
-	unsigned int successor(int x);  // returns the successor to the node x
-	unsigned int findmax();         // returns maximum value node in the tree
-	void traverseinorder();         // prints the nodes in the tree in order
+    void  TRAVERSE(Node*);
+    int   TREE_MAXIMUM(Node*);
+    int   TREE_SUCCESSOR(Node*);
+    Node* TREE_SEARCH(Node*,int);
     
+    /* Required methods */
+	void insertNode(Node*);         // inserts a node n into the tree
+	int  deleteNode(int);           // deletes the first node with a value x
+	int  successor(int);            // returns the successor to the node x
+	int  findmax();                 // returns maximum value node in the tree
+	void traverseinorder();         // prints the nodes in the tree in order
 
 private:
 	Node *root;	                   // pointer to first node
@@ -87,11 +85,11 @@ Node* BST::getParent(Node *n) {
     return n->parent;
 }
 
-unsigned int BST::getKey(Node *n) {
+int BST::getKey(Node *n) {
     return n->key;
 }
 
-unsigned int BST::getSize() {
+int BST::getSize() {
     return size;
 }
 
@@ -114,27 +112,61 @@ void BST::insertNode(Node *n) {
 }
 
 void BST::traverseinorder() {
-    Node *n = root;
-    traverse(n);
+    Node *n = getRoot();
+    TRAVERSE(n);
 }
 
-void BST::traverse(Node *n) {
-    if (n != NULL) {
-        traverse(n->left);
+void BST::TRAVERSE(Node *n) { 
+    if (n != NULL) { 
+        TRAVERSE(n->left);
         printf("key : %d\n",n->key);
-        traverse(n->right);
+        TRAVERSE(n->right);
     }
 } 
 
-unsigned int BST::findmax() {
-    printf("findmax\n");
-    return 5;
+int BST::findmax() {
+    int x;
+    Node *n = getRoot();
+    x = TREE_MAXIMUM(n);
+    return x;
 }
 
-unsigned int BST::TREE_MAXIMUM(Node *n) {
+int BST::TREE_MAXIMUM(Node *n) {
     while (n->right != NULL)
         n = n->right;
-    return (unsigned int)n->key; 
+    return n->key; 
+}
+
+int BST::successor(int x) {
+    int k;     // Successor Key
+    // Need to do a TREE_SEARCH(Node*, int)
+    Node *n;
+    Node *r = getRoot();
+    n = TREE_SEARCH(r, x);
+    k = TREE_SUCCESSOR(n);
+    return k;
+}
+
+int BST::TREE_SUCCESSOR(Node *n) {
+    Node *y;
+    if (n->right != NULL)
+        return TREE_MAXIMUM(n->right);
+    y = n->parent; 
+
+    while (y != NULL && n == y->right) {
+        n = y;
+        y = y->parent;
+    }
+    return y->key;
+}
+
+Node* BST::TREE_SEARCH(Node *n, int k) {
+    if (n == NULL || k == n->key)
+        return n;
+    if (k < n->key) 
+        return TREE_SEARCH(n->left, k);
+    else
+        return TREE_SEARCH(n->right, k);
 }
 
 #endif 

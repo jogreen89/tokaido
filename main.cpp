@@ -5,6 +5,7 @@
 #include "bst.h"
 
 int main(int argc, char **argv) {
+    int max, successor;
     Node m = {.key = 11, .left = NULL, .right = NULL, .parent = NULL };
     Node n = {.key = 10, .left = NULL, .right = NULL, .parent = NULL };
     Node o = {.key = 15, .left = NULL, .right = NULL, .parent = NULL };
@@ -22,10 +23,19 @@ int main(int argc, char **argv) {
     q.left   = &r;
     q.parent = &o; 
     
+    /* Initialize BST */
     BST *b = new BST();
+
     /* Set the root of b */
     b->setRoot(&m);
-    b->traverseinorder();
+
+    /* findmax() test */
+    //max = b->findmax();
+    //printf("max : %d\n", max);
+
+    /* Sucessor test */
+    successor = b->successor(29);
+    printf("successor : %d\n", successor);
     
 	return 0;
 }
