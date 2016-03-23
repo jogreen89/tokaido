@@ -63,7 +63,7 @@ void BST::TRANSPLANT(Node *u, Node *v) {
 		u->parent->left = v;
 	else 
 		u->parent->right = v;
-	if (v == NULL) 
+	if (v != NULL) 
 		v->parent = u->parent;
 }
 
@@ -167,8 +167,8 @@ int BST::findmax() {
 }
 
 void BST::traverseinorder() {
-    Node *n = root; 
-    TRAVERSE(n);
+	// Node *n = root;
+    TRAVERSE(root);
 }
 
 #endif 

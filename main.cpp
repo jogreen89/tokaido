@@ -29,12 +29,22 @@ int main(int argc, char** argv) {
     /* Set the root of b */
     b->SET_ROOT(&m);
 
+	/* Inorder traversal */
+	printf("Before deletion\n");
+	b->traverseinorder();
+
     /* findmax() test */
     max = b->findmax();
 
     /* successor test */
     successor = b->successor(15);
     printf("successor : %d\n", successor);
-    
+
+	/* deleteNode on 'o' */
+	b->deleteNode(15);
+
+	printf("After deletion\n");
+	b->traverseinorder();
+
 	return 0;
 }
