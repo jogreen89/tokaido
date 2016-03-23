@@ -3,9 +3,8 @@
 // Simple main for testing C++ classes.
 // 2016 (c) zubernetes
 #include "bst.h"
-#include "heap_sort.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     int max, successor;
     Node m = {.key = 11, .left = NULL, .right = NULL, .parent = NULL };
     Node n = {.key = 10, .left = NULL, .right = NULL, .parent = NULL };
@@ -28,11 +27,10 @@ int main(int argc, char **argv) {
     BST *b = new BST();
 
     /* Set the root of b */
-    b->setRoot(&m);
+    b->SET_ROOT(&m);
 
     /* findmax() test */
-    //max = b->findmax();
-    //printf("max : %d\n", max);
+    max = b->findmax();
 
     /* Sucessor test */
     successor = b->successor(15);
