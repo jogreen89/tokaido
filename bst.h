@@ -32,8 +32,8 @@ public:
 	void traverseinorder();         // prints the nodes in the tree in order
 
 private:
-	Node *root;	                   // pointer to first node
-	int size;	                   // number of nodes in the tree
+	Node *root;	                    // pointer to first node
+	int size;	                    // number of nodes in the tree
 };
 
 BST::BST() {
@@ -45,31 +45,6 @@ BST::BST() {
 BST::BST(Node *n) {
     /* Initialize BST() with root Node */
     root = n;
-}
-
-void BST::SET_ROOT(Node *n) {
-    root = n;
-}
-
-void BST::insertNode(Node *n) {
-    if (root == NULL && size == 0) {
-        root = n;
-        size++;
-    } else if (root->key < n->key) {
-        printf("Node n is <\n");
-        size++;
-    } else if (root->key > n->key) {
-        printf("Node n is >\n");
-        size++;
-    } else {
-        printf("Else block\n");
-        size++;
-    }
-}
-
-void BST::traverseinorder() {
-    Node *n = root; 
-    TRAVERSE(n);
 }
 
 void BST::TRAVERSE(Node *n) { 
@@ -84,27 +59,10 @@ void BST::TRANSPLANT(BST *b, Node *u, Node *v) {
 
 }
 
-int BST::findmax() {
-    int x;
-    Node *n = root;
-    x = TREE_MAXIMUM(n);
-    return x;
-}
-
 int BST::TREE_MAXIMUM(Node *n) {
     while (n->right != NULL)
         n = n->right;
     return n->key; 
-}
-
-int BST::successor(int x) {
-    int k;     // Successor Key
-    // Need to do a TREE_SEARCH(Node*, int)
-    Node *n;
-    Node *r = root;
-    n = TREE_SEARCH(r, x);
-    k = TREE_SUCCESSOR(n);
-    return k;
 }
 
 int BST::TREE_SUCCESSOR(Node *n) {
@@ -127,6 +85,48 @@ Node* BST::TREE_SEARCH(Node *n, int k) {
         return TREE_SEARCH(n->left, k);
     else
         return TREE_SEARCH(n->right, k);
+}
+
+void BST::SET_ROOT(Node *n) {
+    root = n;
+}
+
+void BST::insertNode(Node *n) {
+    if (root == NULL && size == 0) {
+        root = n;
+        size++;
+    } else if (root->key < n->key) {
+        printf("Node n is <\n");
+        size++;
+    } else if (root->key > n->key) {
+        printf("Node n is >\n");
+        size++;
+    } else {
+        printf("Else block\n");
+        size++;
+    }
+}
+
+int BST::successor(int x) {
+    int k;          // Successor Key
+    // Need to do a TREE_SEARCH(Node*, int)
+    Node *n;
+    Node *r = root;
+    n = TREE_SEARCH(r, x);
+    k = TREE_SUCCESSOR(n);
+    return k;
+}
+
+int BST::findmax() {
+    int x;
+    Node *n = root;
+    x = TREE_MAXIMUM(n);
+    return x;
+}
+
+void BST::traverseinorder() {
+    Node *n = root; 
+    TRAVERSE(n);
 }
 
 #endif 

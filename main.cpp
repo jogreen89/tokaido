@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     /* findmax() test */
     max = b->findmax();
 
-    /* Sucessor test */
+    /* successor test */
     successor = b->successor(15);
     printf("successor : %d\n", successor);
     
