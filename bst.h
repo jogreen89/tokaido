@@ -18,8 +18,9 @@ public:
 
     /* Helper methods */
     void  TRAVERSE(Node*);
-    void  TRANSPLANT(BST*,Node*,Node*);
-    int   TREE_MAXIMUM(Node*);
+    void  TRANSPLANT(Node*,Node*);
+    Node* TREE_MAXIMUM(Node*);
+	Node* TREE_MINIMUM(Node*);
     int   TREE_SUCCESSOR(Node*);
     Node* TREE_SEARCH(Node*,int);
     void  SET_ROOT(Node*);
@@ -55,20 +56,33 @@ void BST::TRAVERSE(Node *n) {
     }
 } 
 
-void BST::TRANSPLANT(BST *b, Node *u, Node *v) {
-
+void BST::TRANSPLANT(Node *u, Node *v) {
+	if (u->parent == NULL) 
+		root = v;
+	else if (u == u->parent->left)
+		u->parent->left = v;
+	else 
+		u->parent->right = v;
+	if (v == NULL) 
+		v->parent = u->parent;
 }
 
-int BST::TREE_MAXIMUM(Node *n) {
+Node* BST::TREE_MAXIMUM(Node *n) {
     while (n->right != NULL)
         n = n->right;
-    return n->key; 
+    return n; 
+}
+
+Node* BST::TREE_MINIMUM(Node *n) {
+	while(n->left != NULL)
+		n = n->left;
+	return n;
 }
 
 int BST::TREE_SUCCESSOR(Node *n) {
     Node *y;
     if (n->right != NULL)
-        return TREE_MAXIMUM(n->right);
+        return TREE_MAXIMUM(n->right)->key;
     y = n->parent; 
 
     while (y != NULL && n == y->right) {
@@ -107,6 +121,34 @@ void BST::insertNode(Node *n) {
     }
 }
 
+int BST::deleteNode(int x) {
+	// Get "T's root" to begin
+	Node *n, *y;
+	Node *r = root;
+	n = TREE_SEARCH(r, x);
+
+	if (n->left == NULL)			/* z has no left child 	   */
+		TRANSPLANT(n, n->right);
+	else if (n->right == NULL)
+		TRANSPLANT(n, n->left); 	/* z has just a left child */
+	else {
+		// z has two children
+		y = TREE_MINIMUM(n->right); /* y is z's successor      */
+		if (y->parent != n) {
+			// y lies within z's right subtree but it
+			// is not the root of this subtree
+			TRANSPLANT(y, y->right);
+			y->right = n->right;
+			y->right->parent = y;
+		}
+		// Replace z by y.
+		TRANSPLANT(n, y);
+		y->left = n->left;
+		y->left->parent = y;
+	}
+	return 0;
+}
+
 int BST::successor(int x) {
     int k;          // Successor Key
     // Need to do a TREE_SEARCH(Node*, int)
@@ -120,7 +162,7 @@ int BST::successor(int x) {
 int BST::findmax() {
     int x;
     Node *n = root;
-    x = TREE_MAXIMUM(n);
+    x = TREE_MAXIMUM(n)->key;
     return x;
 }
 
