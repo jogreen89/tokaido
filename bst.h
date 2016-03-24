@@ -106,19 +106,21 @@ void BST::SET_ROOT(Node *n) {
 }
 
 void BST::insertNode(Node *n) {
-    if (root == NULL && size == 0) {
-        root = n;
-        size++;
-    } else if (root->key < n->key) {
-        printf("Node n is <\n");
-        size++;
-    } else if (root->key > n->key) {
-        printf("Node n is >\n");
-        size++;
-    } else {
-        printf("Else block\n");
-        size++;
-    }
+	Node *y = NULL, *x = root;
+	while (x != NULL) {
+		y = x;
+		if (n->key < x->key)
+			x = x->left;
+		else
+			x = x->right;
+	}
+	n->parent = y;
+	if (y == NULL)
+		root = n;
+	else if (n->key < y->key) 
+		y->left = n;
+	else
+		y->right = n;
 }
 
 int BST::deleteNode(int x) {

@@ -12,16 +12,31 @@ int main(int argc, char** argv) {
     Node p = {.key = 12, .left = NULL, .right = NULL, .parent = NULL };
     Node q = {.key = 27, .left = NULL, .right = NULL, .parent = NULL };
     Node r = {.key = 25, .left = NULL, .right = NULL, .parent = NULL };
+	Node s = {.key = 17, .left = NULL, .right = NULL, .parent = NULL };
 
     m.left   = &n;
     m.right  = &o;
+	m.parent = NULL;
+
+	n.left   = NULL;
+	n.right  = NULL;
+    n.parent = &m;
     
     o.left   = &p;
     o.right  = &q;
     o.parent = &m;
 
+	p.left   = NULL;
+	p.right  = NULL;
+	p.parent = &o;
+
     q.left   = &r;
+	q.right  = NULL;
     q.parent = &o; 
+
+	r.left   = NULL;
+	r.right  = NULL;
+	r.parent = &q;
     
     /* Initialize BST */
     BST *b = new BST();
@@ -44,6 +59,13 @@ int main(int argc, char** argv) {
 	b->deleteNode(15);
 
 	printf("After deletion\n");
+	b->traverseinorder();
+
+	/* insertNode '17'   */
+	printf("Inserting Node 17\n");
+	b->insertNode(&s);
+	
+	printf("After insertion\n");
 	b->traverseinorder();
 
 	return 0;
