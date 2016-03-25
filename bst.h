@@ -14,27 +14,27 @@ class BST {
 public:
     BST();
     BST(Node*);
-	// ~BST();				        // destructor deletes all nodes 
+    // ~BST();              // destructor deletes all nodes 
 
     /* Helper methods */
     void  TRAVERSE(Node*);
     void  TRANSPLANT(Node*,Node*);
     Node* TREE_MAXIMUM(Node*);
-	Node* TREE_MINIMUM(Node*);
+    Node* TREE_MINIMUM(Node*);
     int   TREE_SUCCESSOR(Node*);
     Node* TREE_SEARCH(Node*,int);
     void  SET_ROOT(Node*);
     
     /* Required methods */
-	void insertNode(Node*);         // inserts a node n into the tree
-	int  deleteNode(int);           // deletes the first node with a value x
-	int  successor(int);            // returns the successor to the node x
-	int  findmax();                 // returns maximum value node in the tree
-	void traverseinorder();         // prints the nodes in the tree in order
+    void insertNode(Node*);         // inserts a node n into the tree
+    int  deleteNode(int);           // deletes the first node with a value x
+    int  successor(int);            // returns the successor to the node x
+    int  findmax();                 // returns maximum value node in the tree
+    void traverseinorder();         // prints the nodes in the tree in order
 
 private:
-	Node *root;	                    // pointer to first node
-	int size;	                    // number of nodes in the tree
+    Node *root;                     // pointer to first node
+    int size;                       // number of nodes in the tree
 };
 
 BST::BST() {
@@ -57,14 +57,14 @@ void BST::TRAVERSE(Node *n) {
 } 
 
 void BST::TRANSPLANT(Node *u, Node *v) {
-	if (u->parent == NULL) 
-		root = v;
-	else if (u == u->parent->left)
-		u->parent->left = v;
-	else 
-		u->parent->right = v;
-	if (v != NULL) 
-		v->parent = u->parent;
+    if (u->parent == NULL) 
+        root = v;
+    else if (u == u->parent->left)
+        u->parent->left = v;
+    else 
+        u->parent->right = v;
+    if (v != NULL) 
+        v->parent = u->parent;
 }
 
 Node* BST::TREE_MAXIMUM(Node *n) {
@@ -74,9 +74,9 @@ Node* BST::TREE_MAXIMUM(Node *n) {
 }
 
 Node* BST::TREE_MINIMUM(Node *n) {
-	while(n->left != NULL)
-		n = n->left;
-	return n;
+    while(n->left != NULL)
+        n = n->left;
+    return n;
 }
 
 int BST::TREE_SUCCESSOR(Node *n) {
@@ -106,49 +106,49 @@ void BST::SET_ROOT(Node *n) {
 }
 
 void BST::insertNode(Node *n) {
-	Node *y = NULL, *x = root;
-	while (x != NULL) {
-		y = x;
-		if (n->key < x->key)
-			x = x->left;
-		else
-			x = x->right;
-	}
-	n->parent = y;
-	if (y == NULL)
-		root = n;
-	else if (n->key < y->key) 
-		y->left = n;
-	else
-		y->right = n;
+    Node *y;
+    while (root != NULL) {
+        y = root;
+        if (n->key < root->key)
+            root = root->left;
+        else
+            root = root->right;
+    }
+    n->parent = y;
+    if (y == NULL)
+        root = n;
+    else if (n->key < y->key) 
+        y->left = n;
+    else
+        y->right = n;
 }
 
 int BST::deleteNode(int x) {
-	// Get "T's root" to begin
-	Node *n, *y;
-	Node *r = root;
-	n = TREE_SEARCH(r, x);
+    // Get "T's root" to begin
+    Node *n, *y;
+    Node *r = root;
+    n = TREE_SEARCH(r, x);
 
-	if (n->left == NULL)			/* z has no left child 	   */
-		TRANSPLANT(n, n->right);
-	else if (n->right == NULL)
-		TRANSPLANT(n, n->left); 	/* z has just a left child */
-	else {
-		// z has two children
-		y = TREE_MINIMUM(n->right); /* y is z's successor      */
-		if (y->parent != n) {
-			// y lies within z's right subtree but it
-			// is not the root of this subtree
-			TRANSPLANT(y, y->right);
-			y->right = n->right;
-			y->right->parent = y;
-		}
-		// Replace z by y.
-		TRANSPLANT(n, y);
-		y->left = n->left;
-		y->left->parent = y;
-	}
-	return 0;
+    if (n->left == NULL)                /* z has no left child */
+        TRANSPLANT(n, n->right);
+    else if (n->right == NULL)
+        TRANSPLANT(n, n->left);         /* z has just a left child */
+    else {
+        // z has two children
+        y = TREE_MINIMUM(n->right); /* y is z's successor      */
+        if (y->parent != n) {
+            // y lies within z's right subtree but it
+            // is not the root of this subtree
+            TRANSPLANT(y, y->right);
+            y->right = n->right;
+            y->right->parent = y;
+        }
+        // Replace z by y.
+        TRANSPLANT(n, y);
+        y->left = n->left;
+        y->left->parent = y;
+    }
+    return 0;
 }
 
 int BST::successor(int x) {
@@ -169,7 +169,7 @@ int BST::findmax() {
 }
 
 void BST::traverseinorder() {
-	// Node *n = root;
+// Node *n = root;
     TRAVERSE(root);
 }
 

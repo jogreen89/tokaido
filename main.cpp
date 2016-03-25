@@ -4,6 +4,8 @@
 // 2016 (c) zubernetes
 #include "bst.h"
 
+void testSuite();
+
 int main(int argc, char** argv) {
     int max, successor;
     Node m = {.key = 11, .left = NULL, .right = NULL, .parent = NULL };
@@ -12,31 +14,31 @@ int main(int argc, char** argv) {
     Node p = {.key = 12, .left = NULL, .right = NULL, .parent = NULL };
     Node q = {.key = 27, .left = NULL, .right = NULL, .parent = NULL };
     Node r = {.key = 25, .left = NULL, .right = NULL, .parent = NULL };
-	Node s = {.key = 17, .left = NULL, .right = NULL, .parent = NULL };
+    Node s = {.key = 17, .left = NULL, .right = NULL, .parent = NULL };
 
     m.left   = &n;
     m.right  = &o;
-	m.parent = NULL;
+    m.parent = NULL;
 
-	n.left   = NULL;
-	n.right  = NULL;
+    n.left   = NULL;
+    n.right  = NULL;
     n.parent = &m;
     
     o.left   = &p;
     o.right  = &q;
     o.parent = &m;
 
-	p.left   = NULL;
-	p.right  = NULL;
-	p.parent = &o;
+    p.left   = NULL;
+    p.right  = NULL;
+    p.parent = &o;
 
     q.left   = &r;
-	q.right  = NULL;
+    q.right  = NULL;
     q.parent = &o; 
 
-	r.left   = NULL;
-	r.right  = NULL;
-	r.parent = &q;
+    r.left   = NULL;
+    r.right  = NULL;
+    r.parent = &q;
     
     /* Initialize BST */
     BST *b = new BST();
@@ -44,9 +46,9 @@ int main(int argc, char** argv) {
     /* Set the root of b */
     b->SET_ROOT(&m);
 
-	/* Inorder traversal */
-	printf("Before deletion\n");
-	b->traverseinorder();
+    /* Inorder traversal */
+    printf("Before deletion\n");
+    b->traverseinorder();
 
     /* findmax() test */
     max = b->findmax();
@@ -55,18 +57,34 @@ int main(int argc, char** argv) {
     successor = b->successor(15);
     printf("successor : %d\n", successor);
 
-	/* deleteNode on 'o' */
-	b->deleteNode(15);
+    /* deleteNode on 'o' */
+    b->deleteNode(15);
 
-	printf("After deletion\n");
-	b->traverseinorder();
+    printf("After deletion\n");
+    b->traverseinorder();
 
-	/* insertNode '17'   */
-	printf("Inserting Node 17\n");
-	b->insertNode(&s);
-	
-	printf("After insertion\n");
-	b->traverseinorder();
+    /* insertNode '17'   */
+    printf("Inserting Node 17\n");
+    b->insertNode(&s);
 
-	return 0;
+    printf("After insertion\n");
+    b->traverseinorder();
+
+    testSuite();
+
+    return 0;
+}
+
+void testSuite() {
+    BST *test = new BST();
+    int i;
+
+    for (i = 0; i < 10; i++) {
+        Node *n;
+        n->key = i + 2;
+        test->insertNode(n);
+    }
+
+    test->traverseinorder();
+
 }
