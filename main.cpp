@@ -4,7 +4,8 @@
 // 2016 (c) zubernetes
 #include "bst.h"
 
-void testSuite();
+void testInorderTraversal(BST*); 
+void testFindmax(BST*);
 
 int main(int argc, char** argv) {
     int max, successor;
@@ -15,6 +16,7 @@ int main(int argc, char** argv) {
     Node q = {.key = 27, .left = NULL, .right = NULL, .parent = NULL };
     Node r = {.key = 25, .left = NULL, .right = NULL, .parent = NULL };
     Node s = {.key = 17, .left = NULL, .right = NULL, .parent = NULL };
+    Node t = {.key = 22, .left = NULL, .right = NULL, .parent = NULL };
 
     m.left   = &n;
     m.right  = &o;
@@ -46,9 +48,7 @@ int main(int argc, char** argv) {
     /* Set the root of b */
     b->SET_ROOT(&m);
 
-    /* Inorder traversal */
-    printf("Before deletion\n");
-    b->traverseinorder();
+    testInorderTraversal(b);
 
     /* findmax() test */
     max = b->findmax();
@@ -63,28 +63,22 @@ int main(int argc, char** argv) {
     printf("After deletion\n");
     b->traverseinorder();
 
-    /* insertNode '17'   */
-    printf("Inserting Node 17\n");
-    b->insertNode(&s);
+    // Insertion test 
+    printf("Insertion Test\n");
 
-    printf("After insertion\n");
-    //b->traverseinorder();
+    BST *test = new BST();
 
-    testSuite();
+    test->insertNode(&s);
+    test->insertNode(&t);
+
+    test->traverseinorder();
 
     return 0;
 }
 
-void testSuite() {
-    BST *test = new BST();
-    int i;
-
-    for (i = 0; i < 10; i++) {
-        Node *n;
-        n->key = i + 2;
-        test->insertNode(n);
-    }
-
-    test->traverseinorder();
-
+void testInorderTraversal(BST *b) {
+    /* Inorder traversal */
+    printf("Inorder Traversal Test:\n");
+    b->traverseinorder();
 }
+    
