@@ -17,6 +17,7 @@ public:
     // ~BST();              // destructor deletes all nodes 
 
     /* Helper methods */
+	int   GET_SIZE();
     void  TRAVERSE(Node*);
     void  TRANSPLANT(Node*,Node*);
     Node* TREE_MAXIMUM(Node*);
@@ -24,6 +25,7 @@ public:
     int   TREE_SUCCESSOR(Node*);
     Node* TREE_SEARCH(Node*,int);
     void  SET_ROOT(Node*);
+	void  SET_SIZE(int);
     
     /* Required methods */
     void insertNode(Node*);         // inserts a node n into the tree
@@ -41,6 +43,10 @@ BST::BST() {
     /* An empty BST() */
     root = NULL;
     size = 0;
+}
+
+int BST::GET_SIZE() {
+	return size;
 }
 
 void BST::TRAVERSE(Node *n) { 
@@ -100,6 +106,10 @@ void BST::SET_ROOT(Node *n) {
     root = n;
 }
 
+void BST::SET_SIZE(int x) {
+	size = x;
+}
+
 void BST::insertNode(Node *n) {
     Node *y = NULL;
     Node *x = root;
@@ -117,6 +127,7 @@ void BST::insertNode(Node *n) {
         y->left = n;
     else
         y->right = n;
+	size++;
 }
 
 int BST::deleteNode(int x) {
@@ -144,6 +155,7 @@ int BST::deleteNode(int x) {
         y->left = n->left;
         y->left->parent = y;
     }
+	size--;
     return 0;
 }
 
@@ -165,7 +177,6 @@ int BST::findmax() {
 }
 
 void BST::traverseinorder() {
-// Node *n = root;
     TRAVERSE(root);
 }
 

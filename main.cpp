@@ -9,6 +9,7 @@ void testFindmax(BST*);
 void testSuccessor(BST*, int);
 void testDeletion(BST*, int);
 void testInsertion(BST*, Node*); 
+void testLoop(BST*);
 
 int main(int argc, char** argv) {
     Node m = {.key = 11, .left = NULL, .right = NULL, .parent = NULL };
@@ -46,6 +47,7 @@ int main(int argc, char** argv) {
     
     BST *b = new BST();           /* Initialize BST         */
     b->SET_ROOT(&m);              /* Set the root of b      */
+	b->SET_SIZE(6); 			  /* Set size in this case  */
 
     testInorderTraversal(b);      /* InOrder Traversal      */
     
@@ -83,19 +85,26 @@ void testSuccessor(BST *b, int x) {
 
 void testDeletion(BST *b, int x) {
     /* Delete Node with key x */
+    printf("BST tree SIZE BEFORE Node x deletion:\n");
+	printf("Size : %d\n", b->GET_SIZE());
     printf("BST tree BEFORE Node x deletion:\n");
     b->traverseinorder();
     b->deleteNode(x);
+    printf("BST tree SIZE AFTER Node x deletion:\n");
+	printf("Size : %d\n", b->GET_SIZE());
     printf("BST tree AFTER Node x deletion:\n");
     b->traverseinorder();
-
 }
 
 void testInsertion(BST* b, Node *n) {
     /* Insert Node x into BST */ 
+    printf("BST tree size BEFORE Node x insertion:\n");
+	printf("Size : %d\n", b->GET_SIZE());
     printf("BST tree BEFORE Node x insertion:\n");
     b->traverseinorder();
-    b->insertNode(n);
+    b->insertNode(n);  // Node Insert
+    printf("BST tree size AFTER Node x insertion:\n");
+	printf("Size : %d\n", b->GET_SIZE());
     printf("BST tree AFTER Node x insertion:\n");
     b->traverseinorder();
 }
