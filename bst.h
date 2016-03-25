@@ -43,11 +43,6 @@ BST::BST() {
     size = 0;
 }
 
-BST::BST(Node *n) {
-    /* Initialize BST() with root Node */
-    root = n;
-}
-
 void BST::TRAVERSE(Node *n) { 
     if (n != NULL) { 
         TRAVERSE(n->left);
@@ -106,13 +101,14 @@ void BST::SET_ROOT(Node *n) {
 }
 
 void BST::insertNode(Node *n) {
-    Node *y;
-    while (root != NULL) {
-        y = root;
-        if (n->key < root->key)
-            root = root->left;
+    Node *y = NULL;
+    Node *x = root;
+    while (x != NULL) {
+        y = x;
+        if (n->key < x->key)
+            x = x->left;
         else
-            root = root->right;
+            x = x->right;
     }
     n->parent = y;
     if (y == NULL)

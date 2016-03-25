@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
     b->insertNode(&s);
 
     printf("After insertion\n");
-    b->traverseinorder();
+    //b->traverseinorder();
 
     testSuite();
 
