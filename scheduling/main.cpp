@@ -3,9 +3,8 @@
 #include "fcfs.h"
 #include "rr.h"
 #include "sjf.h"
-
-// Task Format:
-// pid arrival_time burst_time
+#include "pcb.h"
+#include "circular_queue.h"
 
 int main(int argc, char **argv) {
    printf("Hello, World\n"); 
