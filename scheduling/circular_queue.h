@@ -7,12 +7,13 @@
 #ifndef CIRCULAR_QUEUE_H 
 #define CIRCULAR_QUEUE_H 
 
-#include <stdio.h>
+
+#include "pcb.h"
 
 class CircularQueue {
 private:
-    PCB *head;
-    PCB *tail;
+    PCB *_head;
+    PCB *_tail;
 public:
     CircularQueue();
     ~CircularQueue();
@@ -26,8 +27,15 @@ public:
 
 CircularQueue::CircularQueue() {
     /* Empty Queue */
-    *head = NULL;
-    *tail = NULL;
+    _head = NULL;
+    _tail = NULL;
+}
+
+CircularQueue::~CircularQueue() {
+    /* Deallocate the memory */
+    /* for CircularQueue     */
+    delete _head;
+    delete _tail;
 }
 
 #endif

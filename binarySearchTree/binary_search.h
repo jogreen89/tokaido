@@ -2,7 +2,9 @@
 // 
 // A C++ implementation of Binary Search algorithm.
 // This program does not use the STL binary_search
-// algorithm. 
+// algorithm. Additionally, this search does not apply
+// to an actual binary search tree data structure, but
+// to operating on builtin C-style arrays.
 // Worst Case O(lg n), Best Case O(1)
 // (c) 2016 zubernetes 
 #ifndef BINARY_SEARCH_H
