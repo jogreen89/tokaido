@@ -5,5 +5,5 @@
 int main(int argc, char **argv) {
     printf("Hello, World.\n");
     PCB *p = new PCB();
-    delete p; 
+    printf("%d\n", p->getProcessNumber());
 }

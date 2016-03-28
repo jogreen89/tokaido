@@ -18,6 +18,7 @@ public:
     PCB();
     ~PCB();
     int generateProcessNumber();
+    int getProcessNumber();
 };
 
 PCB::PCB() {
@@ -30,8 +31,12 @@ PCB::~PCB() {
 
 int PCB::generateProcessNumber() {
     srand (time(NULL));
-    int x = rand() % 10 + 1; 
+    int x = rand() % 500 + 150;
     return x; 
+}
+
+int PCB::getProcessNumber() {
+    return _process_num;
 }
 
 #endif
