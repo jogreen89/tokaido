@@ -1,8 +1,8 @@
 # (c) 2016 zubernetes
 CC = c++
 CFLAGS = -g
-SOURCES = proj2.cpp
-EXECUTABLE = proj2 
+SOURCES = binarySearch.cpp
+EXECUTABLE = binarySearch
 
 all:
 	$(CC) $(SOURCES) -o $(EXECUTABLE) $(CFLAGS)

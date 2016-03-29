@@ -13,6 +13,7 @@
 class PCB {
 private:
     int  _process_num;
+    int  _process_size;
     PCB *_next;
 public:
     PCB();
