@@ -57,15 +57,15 @@ int main(int argc, char** argv) {
     printf("Here is argv[0] : %s\n", argv[0]);
     printf("Here is argv[1] : %s\n", argv[1]);
 
-    if (argv[1] == "ORD")
+    if (strcmp (argv[1], "ORD"))
         testInorderTraversal(b);      /* InOrder Traversal      */
-    else if (argv[1] == "MAX")
+    else if (strcmp (argv[1], "MAX"))
         testFindmax(b);               /* FindMax value of BST   */
-    else if (argv[1] == "SUC")
+    else if (strcmp (argv[1], "SUC"))
         testSuccessor(b, 15);         /* Find successor at x    */
-    else if (argv[1] == "INS")
+    else if (strcmp (argv[1], "INS"))
         testDeletion(b, 15);          /* Delete Node of key x   */
-    else if (argv[1] == "DEL")
+    else if (strcmp (argv[1], "DEL"))
         testInsertion(b, &s);         /* Insert Node n into BST */
     else
        printf("Usage: binarySearch [ORD|MAX|SUC|INS|DEL]\n");
