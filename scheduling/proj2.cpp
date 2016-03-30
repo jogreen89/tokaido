@@ -18,7 +18,6 @@ int main(int argc, char **argv) {
             delay = atoi(buffer);
             for (i = 0; i < delay; i++) {
                 printf("<system time %d> process %d is running\n", i, delay);
-                usleep(1000);
             }
         } else if (strcmp (argv[1], "RR") == 0)
             printf("RR\n");
