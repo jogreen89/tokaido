@@ -6,9 +6,6 @@
 #ifndef READY_QUEUE_H 
 #define READY_QUEUE_H 
 
-#include <string.h>
-#include <queue>
-
 #include "pcb.h"
 
 class ReadyQueue {
