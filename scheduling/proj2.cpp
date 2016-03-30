@@ -1,6 +1,6 @@
 // proj2.cpp
 //
-// Simple main for testing C++ classes.
+// CPU scheduling simulation.
 // 2016 (c) zubernetes
 #include "ready_queue.h"
 
@@ -11,8 +11,14 @@ int main(int argc, char **argv) {
         printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
         return 0;
     } else {
-        printf("int argc < 2\n");
-        
+        if (strcmp (argv[1], "FCFS") == 0)
+            printf("FCFS\n"); 
+        else if (strcmp (argv[1], "RR") == 0)
+            printf("RR\n");
+        else if (strcmp (argv[1], "SJF") == 0)
+            printf("SJF\n");
+        else
+            printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
         return 0;
     }
 }
