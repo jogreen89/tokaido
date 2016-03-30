@@ -3,6 +3,7 @@
 // A class-based binary-search tree.
 // 2016 (c) zubernetes
 #include "bst.h"
+#include <iostream>
 
 void testInorderTraversal(BST*); 
 void testFindmax(BST*);
@@ -54,22 +55,18 @@ int main(int argc, char** argv) {
        return 0;
     }
 
-    printf("Here is argv[0] : %s\n", argv[0]);
-    printf("Here is argv[1] : %s\n", argv[1]);
-
-    if (strcmp (argv[1], "ORD"))
-        testInorderTraversal(b);      /* InOrder Traversal      */
-    else if (strcmp (argv[1], "MAX"))
-        testFindmax(b);               /* FindMax value of BST   */
-    else if (strcmp (argv[1], "SUC"))
-        testSuccessor(b, 15);         /* Find successor at x    */
-    else if (strcmp (argv[1], "INS"))
-        testDeletion(b, 15);          /* Delete Node of key x   */
-    else if (strcmp (argv[1], "DEL"))
-        testInsertion(b, &s);         /* Insert Node n into BST */
-    else
+    if (strcmp (argv[1], "ORD") == 0) 
+        testInorderTraversal(b);            /*    InOrder Traversal   */
+    else if (strcmp (argv[1], "MAX") == 0) 
+        testFindmax(b);                     /*  FindMax value of BST  */
+    else if (strcmp (argv[1], "SUC") == 0) 
+        testSuccessor(b, 15);               /*   Find successor at x  */
+    else if (strcmp (argv[1], "INS") == 0) 
+        testDeletion(b, 15);                /*  Delete Node of key x  */
+    else if (strcmp (argv[1], "DEL") == 0) 
+        testInsertion(b, &s);               /* Insert Node n into BST */
+    else 
        printf("Usage: binarySearch [ORD|MAX|SUC|INS|DEL]\n");
-
     return 0;
 }
 

@@ -5,9 +5,14 @@
 #include "ready_queue.h"
 
 int main(int argc, char **argv) {
-    int delay;
-    printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
-    scanf("%d", &delay);
-    printf("%d\n", delay);
-}
+    int delay = 0;
 
+    if (argc < 2) {
+        printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
+        return 0;
+    } else {
+        printf("int argc < 2\n");
+        
+        return 0;
+    }
+}
