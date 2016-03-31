@@ -11,35 +11,59 @@
 #include <string.h>
 #include <time.h>
 #include <queue>
+#include <iostream>
+#include <fstream>
 
 class PCB {
 private:
     int  _process_num;
-    int  _process_size;
+    int  _burst_size;
+    int  _arrival_time;
     PCB *_next;
 public:
     PCB();
     ~PCB();
-    int generatePID();
-    int getPID();
+    void setProcessID(int);
+    void setBurstSize(int);
+    void setArrivalTime(int);
+
+    int getProcessID();
+    int getBurstSize();
+    int getArrivalTime();
 };
 
 PCB::PCB() {
-    _process_num = generateProcessNumber();
+    _process_num  = 0;
+    _burst_size   = 0;
+    _arrival_time = 0;
 }    
 
 PCB::~PCB() {
 	delete _next;
 }
 
-int PCB::generatePID() {
-    srand (time(NULL));
-    int x = rand() % 500 + 150;
-    return x; 
+void PCB::setProcessID(int x) {
+    _process_num = x;
 }
 
-int PCB::getPID() {
+void PCB::setBurstSize(int x) {
+    _burst_size = x;
+}
+
+void PCB::setArrivalTime(int x) {
+    _arrival_time = x;
+}
+
+int PCB::getProcessID() {
     return _process_num;
+}
+
+int PCB::getBurstSize() {
+    return _burst_size;
+}
+
+int PCB::getArrivalTime() {
+    return _arrival_time;
 }
 
 #endif
