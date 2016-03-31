@@ -20,8 +20,8 @@ private:
 public:
     PCB();
     ~PCB();
-    int generateProcessNumber();
-    int getProcessNumber();
+    int generatePID();
+    int getPID();
 };
 
 PCB::PCB() {
@@ -32,13 +32,13 @@ PCB::~PCB() {
 	delete _next;
 }
 
-int PCB::generateProcessNumber() {
+int PCB::generatePID() {
     srand (time(NULL));
     int x = rand() % 500 + 150;
     return x; 
 }
 
-int PCB::getProcessNumber() {
+int PCB::getPID() {
     return _process_num;
 }
 
