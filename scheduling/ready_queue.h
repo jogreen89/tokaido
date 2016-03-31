@@ -14,26 +14,24 @@ private:
 public:
     ReadyQueue();
     ~ReadyQueue();
-    int Enqueue(PCB*);
-    int Dequeue();
+    void Enqueue(PCB*);
+    void Dequeue();
 };
 
 ReadyQueue::ReadyQueue() {
-    printf("No errors here...\n");
+    
 }
 
 ReadyQueue::~ReadyQueue() {
     printf("No errors here...\n");
 }
 
-int ReadyQueue::Enqueue(PCB *p) {
+void ReadyQueue::Enqueue(PCB *p) {
     _ready_queue->push(p);    
-    return 0;
 }
 
-int ReadyQueue::Dequeue() {
+void ReadyQueue::Dequeue(void) {
     _ready_queue->pop();
-    return 0;
 }
 
 #endif
