@@ -3,33 +3,57 @@
 // CPU scheduling simulation.
 // 2016 (c) zubernetes
 #include "ready_queue.h"
+#define BUF_SIZE 50
 
+int  getMaxCount();
+void setMaxCount(int);
 void get_input_from_cli();
-std::queue<PCB*> do_infile();
+int* do_infile();
+
+int max_count = 0;
 
 int main(int argc, char **argv) {
     std::queue<PCB*> q;
     PCB *p = new PCB();
+    int* a;
+    int count = 0;
 
     if (argc < 2) {
         printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
         return 0;
     } 
 
-    p->setProcessID(1);
-    p->setArrivalTime(0);
-    p->setBurstSize(10);
 
-    q = do_infile();
+    a = do_infile();
 
-    while (!q.empty()) {
-        std::cout << "Take a look: " 
-                  << q.back()->getProcessID()
-                  << "\n";
-        q.pop();
+    for (int j = 0; j < getMaxCount(); j++) {
+        std::cout << a[j] << " ";
+        p->setProcessID(a[j]);
+        j++;
+        p->setArrivalTime(a[j]);
+        j++;
+        p->setBurstSize(a[j]);
+
+        q.push(p);
+
+        count++;
+        if (count > 2) {
+            std::cout << std::endl;
+            count = 0;
+        }
     }
 
+    std::cout << "q:size " << q.size() << std::endl;
+
     return 0;
+}
+
+void setMaxCount(int x) {
+    max_count = x;
+}
+
+int getMaxCount() {
+    return max_count;
 }
 
 void get_input_from_cli() {
@@ -55,41 +79,33 @@ void get_input_from_cli() {
               << p->getBurstSize() << '\n';
 }
 
-std::queue<PCB*> do_infile() {
-    int x, count = 0;
+int* do_infile() {
+    int x = 0,
+        i = 0,
+        y = 0,
+        z = 0,
+        count = 0;
+    static int a[BUF_SIZE];
     std::queue<PCB*> q;
     PCB *p = new PCB();
 
     std::fstream f;
     f.open("input_file", std::fstream::in); 
 
-    while (!f.eof()) {
-        if (count < 3) {
-            switch (count) {
-                case 0:
-                    f >> x;
-                    std::cout << x << ' ';
-                    p->setProcessID(x);
-                    break;
-                case 1:
-                    f >> x;
-                    std::cout << x << ' ';
-                    p->setArrivalTime(x);
-                    break; 
-                case 2:
-                    f >> x;
-                    std::cout << x << ' ';
-                    p->setBurstSize(x);
-                    break;
-            }
-            count++;
-        } else {
-            std::cout << '\n';
-            q.push(p);
+    while (f >> x) {
+        std::cout << x << " ";
+        a[i] = x;
+        count++;
+        i++;
+        if (count > 2) {
+            std::cout << std::endl;
             count = 0;
         }
     }
-    
     f.close();
-    return q;
+    setMaxCount(i);
+    return &a[0];
 }
+
+
+

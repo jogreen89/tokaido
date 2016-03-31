@@ -26,6 +26,7 @@ public:
     void setProcessID(int);
     void setBurstSize(int);
     void setArrivalTime(int);
+    void makeNull();
 
     int getProcessID();
     int getBurstSize();
@@ -54,9 +55,16 @@ void PCB::setArrivalTime(int x) {
     _arrival_time = x;
 }
 
+void PCB::makeNull() {
+    _process_num  = 0;
+    _burst_size   = 0;
+    _arrival_time = 0;
+}
+
 int PCB::getProcessID() {
     return _process_num;
 }
+
 
 int PCB::getBurstSize() {
     return _burst_size;
