@@ -12,7 +12,11 @@
 #include <time.h>
 #include <queue>
 #include <iostream>
+#include <ctime>
+#include <sys/time.h>
 #include <fstream>
+#include <list>
+#include <vector>
 
 class PCB {
 private:

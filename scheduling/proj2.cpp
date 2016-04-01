@@ -2,8 +2,9 @@
 //
 // CPU scheduling simulation.
 // 2016 (c) zubernetes
-#include "ready_queue.h"
 #include "fcfs.h"
+#include "sjf.h"
+#include "rr.h"
 
 #define MAIN 66
 #define SUB  60
@@ -13,34 +14,58 @@ void printLine(int);
 void summaryBlock(int, int, int);
 
 int main(int argc, char **argv) {
+    int turn_time = 0;
 
     if (argc < 2) {
         std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
         return 0;
     } 
 
-    int *a = processInputFile(argv[1]);
-    std::queue<PCB*> q = buildProcessQueue(a);
-
     if (strcmp(argv[2], "FCFS") == 0) {
+        int *a = processInputFile(argv[1]);
+        std::queue<PCB*> q = buildFCFSQueue(a);
         output(argv[2], q.size(), argv[1]);
-        struct timeval turn_start, turn_stop;                     // turnaround time
+        struct timeval turn_start, turn_stop;               // turnaround time
         turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
         gettimeofday(&turn_start, NULL);
-        operateFCFS(q);
+
+        int avg_time = operateFCFS(q);
+
         gettimeofday(&turn_stop, NULL);
-        turn_time = ((stop.tv_sec - start.tv_sec) * 1000000 +
-            stop.tv_usec - start.tv_usec);
-        summaryBlock(10, 10, turn_time);
-    }
+        turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
+            turn_stop.tv_usec - turn_start.tv_usec);
+        summaryBlock(avg_time, avg_time, turn_time);
 
-    else if (strcmp(argv[2], "RR") == 0)
-        std::cout << "Do RR" << std::endl;
-    else if (strcmp(argv[2], "SJF") == 0)
-        std::cout << "Do SJF" << std::endl;
-    else
+    } else if (strcmp(argv[2], "SJF") == 0) {
+        int *a = processInputFile(argv[1]);
+        std::queue<PCB*> q = buildSJFQueue(a);
+        output(argv[2], q.size(), argv[1]);
+        struct timeval turn_start, turn_stop;               // turnaround time
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
+        gettimeofday(&turn_start, NULL);
+
+        int avg_time = operateSJF(q);
+
+        gettimeofday(&turn_stop, NULL);
+        turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
+            turn_stop.tv_usec - turn_start.tv_usec);
+        summaryBlock(avg_time, avg_time, turn_time);
+    } else if (strcmp(argv[2], "RR") == 0) {
+        int *a = processInputFile(argv[1]);
+        std::vector<PCB*> v = buildRRQueue(a);
+        output(argv[2], v.size(), argv[1]);
+        struct timeval turn_start, turn_stop;               // turnaround time
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
+        gettimeofday(&turn_start, NULL);
+
+        int avg_time = operateRR(v,2);
+
+        gettimeofday(&turn_stop, NULL);
+        turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
+            turn_stop.tv_usec - turn_start.tv_usec);
+        summaryBlock(avg_time, avg_time, turn_time);
+    } else
         std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
-
     return 0;
 }
 
