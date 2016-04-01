@@ -1,19 +1,49 @@
 #ifndef SJF_H
 #define SJF_H
 
-void printsjf();
+void scf_sanity(std::queue<PCB*>);
+void operateSCF(std::queue<PCB*>);
 
-void printsjf() {
-/* 
-    The selected scheduling algorithms to implement
-    in this project are:
+void scf_sanity(std::queue<PCB*> q) {
+    std::queue<PCB*> copy(q);
 
-    1) First Come First Serve (FCFS)
-    2) Round Robin
-    3) Shortest Job First (SJF)
+    while (!copy.empty()) {
+        std::cout << "Process ID: " << copy.front()->getProcessID()
+            << std::endl;
+        std::cout << "Arrival Time: " << copy.front()->getArrivalTime()
+            << std::endl;
+        std::cout << "Burst Size: " << copy.front()->getBurstSize()
+            << std::endl;
+        copy.pop();
+    }
 
-    The details of these algorithms are available in the text book.
-*/
+}
+
+void operateSCF(std::queue<PCB*> q) {
+    int workComplete = 0, 
+        process      = 0, 
+        arrivalTime  = 0,
+        burstTime    = 0,
+        systemTime   = 0;
+    while(!q.empty()) {
+        process     = q.front()->getProcessID();
+        arrivalTime = q.front()->getArrivalTime();
+        burstTime   = q.front()->getBurstSize();
+        while(workComplete < burstTime) { 
+            std::cout << "<system time " << systemTime << "> process " <<
+               process << " is runnning" << std::endl;
+            workComplete++;
+            systemTime++;
+            if (workComplete == burstTime) {
+                std::cout << "<system time " << systemTime << "> process " <<
+                   process << " is finished......." << std::endl;
+            }
+        }
+        q.pop();
+        workComplete = 0;
+    }
+    std::cout << "<system time " << systemTime << "> All processes " <<
+       "finish...................." << std::endl;
 }
 
 #endif

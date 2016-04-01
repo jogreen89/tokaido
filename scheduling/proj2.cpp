@@ -3,109 +3,75 @@
 // CPU scheduling simulation.
 // 2016 (c) zubernetes
 #include "ready_queue.h"
-#define BUF_SIZE 50
+#include "fcfs.h"
 
-int  getMaxCount();
-void setMaxCount(int);
-void get_input_from_cli();
-int* do_infile();
+#define MAIN 66
+#define SUB  60
 
-int max_count = 0;
+void output(char*, int, char*);
+void printLine(int);
+void summaryBlock(int, int, int);
 
 int main(int argc, char **argv) {
-    std::queue<PCB*> q;
-    PCB *p = new PCB();
-    int* a;
-    int count = 0;
 
     if (argc < 2) {
-        printf("Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n");
+        std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
         return 0;
     } 
 
+    int *a = processInputFile(argv[1]);
+    std::queue<PCB*> q = buildProcessQueue(a);
 
-    a = do_infile();
-
-    for (int j = 0; j < getMaxCount(); j++) {
-        std::cout << a[j] << " ";
-        p->setProcessID(a[j]);
-        j++;
-        p->setArrivalTime(a[j]);
-        j++;
-        p->setBurstSize(a[j]);
-
-        q.push(p);
-
-        count++;
-        if (count > 2) {
-            std::cout << std::endl;
-            count = 0;
-        }
+    if (strcmp(argv[2], "FCFS") == 0) {
+        output(argv[2], q.size(), argv[1]);
+        struct timeval turn_start, turn_stop;                     // turnaround time
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
+        gettimeofday(&turn_start, NULL);
+        operateFCFS(q);
+        gettimeofday(&turn_stop, NULL);
+        turn_time = ((stop.tv_sec - start.tv_sec) * 1000000 +
+            stop.tv_usec - start.tv_usec);
+        summaryBlock(10, 10, turn_time);
     }
 
-    std::cout << "q:size " << q.size() << std::endl;
+    else if (strcmp(argv[2], "RR") == 0)
+        std::cout << "Do RR" << std::endl;
+    else if (strcmp(argv[2], "SJF") == 0)
+        std::cout << "Do SJF" << std::endl;
+    else
+        std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
 
     return 0;
 }
 
-void setMaxCount(int x) {
-    max_count = x;
-}
-
-int getMaxCount() {
-    return max_count;
-}
-
-void get_input_from_cli() {
-    int z = 0;
-    PCB *p = new PCB(); 
-   
-    std::cout << "Enter the process ID: ";
-    std::cin >> z;
-    p->setProcessID(z);
-    std::cout << "The process ID is: " 
-              << p->getProcessID() << '\n';
-
-    std::cout << "Enter the arrival time: ";
-    std::cin >> z;
-    p->setArrivalTime(z);
-    std::cout << "The arrival time is: " 
-              << p->getArrivalTime() << '\n';
-
-    std::cout << "Enter the burst time: ";
-    std::cin >> z;
-    p->setBurstSize(z);
-    std::cout << "The burst time is: " 
-              << p->getBurstSize() << '\n';
-}
-
-int* do_infile() {
-    int x = 0,
-        i = 0,
-        y = 0,
-        z = 0,
-        count = 0;
-    static int a[BUF_SIZE];
-    std::queue<PCB*> q;
-    PCB *p = new PCB();
-
-    std::fstream f;
-    f.open("input_file", std::fstream::in); 
-
-    while (f >> x) {
-        std::cout << x << " ";
-        a[i] = x;
-        count++;
-        i++;
-        if (count > 2) {
-            std::cout << std::endl;
-            count = 0;
-        }
+void output(char* s, int n, char* in) {
+    std::string line;
+    std::cout << "Scheduling algorithm: " << s << std::endl <<
+        "Total " << n << " tasks are read from \"" << in <<
+        "\". press \'enter\' to start...";
+    std::getline(std::cin, line);
+    if (line.empty()) {
+        printLine(MAIN);
+    } else {
+        std::cout << "Project 2 Exiting" << std::endl;
     }
-    f.close();
-    setMaxCount(i);
-    return &a[0];
+    
 }
 
+void printLine(int l) {
+    if (l == MAIN)
+        std::cout << "====================================================================\n";
+    else if (l == SUB)
+        std::cout << "==============================================================\n";
+    else
+        return;
+}
 
-
+void summaryBlock(int wait_time, int resp_time, int turn_time) {
+    printLine(SUB);
+    std::cout << "Average cpu usage       : 100.00 %" << std::endl;
+    std::cout << "Average waiting time    : " << wait_time << std::endl;
+    std::cout << "Average response time   : " << resp_time << std::endl;
+    std::cout << "Average turnaround time : " << turn_time << std::endl;
+    printLine(SUB);
+}
