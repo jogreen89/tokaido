@@ -11,6 +11,10 @@
 #include <sys/time.h>
 #include <iostream>
 
+// Selection Sort
+// Worst case performance   : O(n^2)
+// Best  case performance   : O(n^2)
+// Average case performance : O(n^2)
 void selection_sort(int *a, int n) {
     int i, j, m, t;
     for (i = 0; i < n; i++) {
@@ -26,6 +30,10 @@ void selection_sort(int *a, int n) {
     }
 }
 
+// Insertion Sort
+// Worst case performance   : O(n^2) comparisons, swaps
+// Best  case performance   : O(n) comparisons, O(1) swaps
+// Average case performance : O(n^2) comparisons, swaps
 void insertion_sort(int *a, int n) {
     int i, j, len = n - 1, key;
     for (i = 2; i < len; i++ ) {
@@ -39,6 +47,8 @@ void insertion_sort(int *a, int n) {
     }
 }
 
+// Build a dataset to test for the amortized analysis
+// of insertion_sort and selection_sort (unoptimized).
 int* buildDataSet(int size) {
     int* data_set = new int[size];
     int num;
