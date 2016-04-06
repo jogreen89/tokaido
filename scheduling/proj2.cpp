@@ -16,6 +16,7 @@ void summaryBlock(int, int, int);
 int main(int argc, char **argv) {
     int turn_time = 0;
 
+    // Diplay proj2 usage parameters.
     if (argc < 2) {
         std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
         return 0;

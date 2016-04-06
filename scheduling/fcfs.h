@@ -1,40 +1,37 @@
+// fcfs.h
+//
+// CPU scheduling simulation. This header contains
+// operations to simulate a First Come First Serve
+// (FCFS) CPU scheduling algorithm.
+// 2016 (c) zubernetes
 #ifndef FCFS_H
 #define FCFS_H
 
 #include "pcb.h"
 #include "ready_queue.h"
 
-void fcfs_sanity(std::queue<PCB*>);
 int operateFCFS(std::queue<PCB*>);
 
-void fcfs_sanity(std::queue<PCB*> q) {
-    std::queue<PCB*> copy(q);
-
-    while (!copy.empty()) {
-        std::cout << "Process ID: " << copy.front()->getProcessID()
-            << std::endl;
-        std::cout << "Arrival Time: " << copy.front()->getArrivalTime()
-            << std::endl;
-        std::cout << "Burst Size: " << copy.front()->getBurstSize()
-            << std::endl;
-        copy.pop();
-    }
-}
-
 int operateFCFS(std::queue<PCB*> q) {
-    int workComplete = 0, 
-        process      = 0, 
+    // Declare CPU object variables
+    int workComplete = 0,
+        process      = 0,
         arrivalTime  = 0,
         burstTime    = 0,
         systemTime   = 0,
         wait_time    = 0;
+
+    // Simulation CPU activity until there
+    // are no more processes in the ready queue.
     while(!q.empty()) {
         struct timeval wait_start, wait_stop;
         wait_start.tv_usec = 0, wait_stop.tv_usec = 0;
         gettimeofday(&wait_start, NULL);
+
         process     = q.front()->getProcessID();
         arrivalTime = q.front()->getArrivalTime();
         burstTime   = q.front()->getBurstSize();
+
         while(workComplete < burstTime) { 
             std::cout << "<system time " << systemTime << "> process " <<
                process << " is runnning" << std::endl;

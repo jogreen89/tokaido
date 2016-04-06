@@ -1,3 +1,9 @@
+// rr.h
+//
+// CPU scheduling simulation. This header contains
+// operations to simulate a Round Robin
+// (RR) CPU scheduling algorithm.
+// 2016 (c) zubernetes
 #ifndef RR_H
 #define RR_H
 
