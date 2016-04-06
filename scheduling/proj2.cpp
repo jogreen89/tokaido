@@ -21,7 +21,8 @@ int main(int argc, char **argv) {
         return 0;
     } 
 
-    if (strcmp(argv[2], "FCFS") == 0) {
+    if (strcmp(argv[2], "FCFS") == 0 ||
+        strcmp(argv[2], "fcfs") == 0) {
         int *a = processInputFile(argv[1]);
         std::queue<PCB*> q = buildFCFSQueue(a);
         output(argv[2], q.size(), argv[1]);
@@ -36,7 +37,8 @@ int main(int argc, char **argv) {
             turn_stop.tv_usec - turn_start.tv_usec);
         summaryBlock(avg_time, avg_time, turn_time);
 
-    } else if (strcmp(argv[2], "SJF") == 0) {
+    } else if (strcmp(argv[2], "SJF") == 0 || 
+               strcmp(argv[2], "sjf") == 0) {
         int *a = processInputFile(argv[1]);
         std::queue<PCB*> q = buildSJFQueue(a);
         output(argv[2], q.size(), argv[1]);
@@ -50,7 +52,8 @@ int main(int argc, char **argv) {
         turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
             turn_stop.tv_usec - turn_start.tv_usec);
         summaryBlock(avg_time, avg_time, turn_time);
-    } else if (strcmp(argv[2], "RR") == 0) {
+    } else if (strcmp(argv[2], "RR") == 0 ||
+               strcmp(argv[2], "rr") == 0) {
         int *a = processInputFile(argv[1]);
         std::vector<PCB*> v = buildRRQueue(a);
         output(argv[2], v.size(), argv[1]);

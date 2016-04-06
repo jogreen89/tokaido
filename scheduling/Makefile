@@ -1,5 +1,5 @@
 # (c) 2016 zubernetes
-CC = c++
+CC = g++ 
 CFLAGS = -g
 SOURCES = proj2.cpp
 EXECUTABLE = proj2 
