@@ -22,54 +22,59 @@ int main(int argc, char **argv) {
         return 0;
     } 
 
-    if (strcmp(argv[2], "FCFS") == 0 ||
+    if (strcmp(argv[2], "FCFS") == 0 ||                     // Commands are not case-sensitive
         strcmp(argv[2], "fcfs") == 0) {
-        int *a = processInputFile(argv[1]);
-        std::queue<PCB*> q = buildFCFSQueue(a);
-        output(argv[2], q.size(), argv[1]);
-        struct timeval turn_start, turn_stop;               // turnaround time
-        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
-        gettimeofday(&turn_start, NULL);
+        int *a = processInputFile(argv[1]);                 // Read in an input file
+        std::queue<PCB*> q = buildFCFSQueue(a);             // Create "CPU ready queue"
 
-        int avg_time = operateFCFS(q);
+        output(argv[2], q.size(), argv[1]);
+
+        struct timeval turn_start, turn_stop;               //
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;      // Calculate the turnaround time
+        gettimeofday(&turn_start, NULL);                    //
+
+        int avg_time = operateFCFS(q);                      // Calculate the waiting/response time
 
         gettimeofday(&turn_stop, NULL);
         turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
             turn_stop.tv_usec - turn_start.tv_usec);
-        summaryBlock(avg_time, avg_time, turn_time);
+        summaryBlock(avg_time, avg_time, turn_time);        // Display CPU activity to STDOUT
 
-    } else if (strcmp(argv[2], "SJF") == 0 || 
+    } else if (strcmp(argv[2], "SJF") == 0 ||               // Commands are not case-sensitive 
                strcmp(argv[2], "sjf") == 0) {
-        int *a = processInputFile(argv[1]);
-        std::queue<PCB*> q = buildSJFQueue(a);
+        int *a = processInputFile(argv[1]);                 // Read in an input file
+        std::queue<PCB*> q = buildSJFQueue(a);              // Create "CPU ready queue"
+
         output(argv[2], q.size(), argv[1]);
-        struct timeval turn_start, turn_stop;               // turnaround time
-        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
-        gettimeofday(&turn_start, NULL);
 
-        int avg_time = operateSJF(q);
+        struct timeval turn_start, turn_stop;               //
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;      // Calculate the turnaround time
+        gettimeofday(&turn_start, NULL);                    //
+
+        int avg_time = operateSJF(q);                       // Calculate the waiting/response time
 
         gettimeofday(&turn_stop, NULL);
         turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
             turn_stop.tv_usec - turn_start.tv_usec);
-        summaryBlock(avg_time, avg_time, turn_time);
-    } else if (strcmp(argv[2], "RR") == 0 ||
+        summaryBlock(avg_time, avg_time, turn_time);        // Display CPU activity to STDOUT
+    } else if (strcmp(argv[2], "RR") == 0 ||                // Commands are not case-sensitive
                strcmp(argv[2], "rr") == 0) {
-        int *a = processInputFile(argv[1]);
-        std::vector<PCB*> v = buildRRQueue(a);
-        output(argv[2], v.size(), argv[1]);
-        struct timeval turn_start, turn_stop;               // turnaround time
-        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;
-        gettimeofday(&turn_start, NULL);
+        int *a = processInputFile(argv[1]);                 // Read in an input file
+        std::vector<PCB*> v = buildRRQueue(a);              // Create "CPU ready queue"
 
-        int avg_time = operateRR(v,2);
+                                                            
+        struct timeval turn_start, turn_stop;               // 
+        turn_start.tv_usec = 0; turn_stop.tv_usec = 0;      // Calculate the turnaround time
+        gettimeofday(&turn_start, NULL);                    // 
+
+        int avg_time = operateRR(v,2);                      // Calculate the waiting/response time
 
         gettimeofday(&turn_stop, NULL);
         turn_time = ((turn_stop.tv_sec - turn_start.tv_sec) * 1000000 +
             turn_stop.tv_usec - turn_start.tv_usec);
-        summaryBlock(avg_time, avg_time, turn_time);
+        summaryBlock(avg_time, avg_time, turn_time);        // Display CPU activity to STDOUT
     } else
-        std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";
+        std::cout << "Usage: proj2 input_file [FCFS|RR|SJF] [time_quantum]\n";      // Invalid usage
     return 0;
 }
 
