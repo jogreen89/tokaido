@@ -2,3 +2,4 @@ testing gpg settings.
 I didn't use -S to sign I think.
 Didn't work.
 Now configuring ssh on windows.
+Now configuring gpg on windows.
