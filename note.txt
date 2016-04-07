@@ -4,3 +4,4 @@ Didn't work.
 Now configuring ssh on windows.
 Now configuring gpg on windows.
 Didn't working this time in Powershell.
+Things are really messed up.
