@@ -1,2 +1,3 @@
 testing gpg settings.
+I didn't use -S to sign I think.
 Didn't work.
