@@ -29,9 +29,16 @@ void readInFile(char *c) {
     open_file = fopen(c, "r");
     
     while (fscanf(open_file, "%s", buffer) != EOF) {
-        if (strcmp("%s", "n") == 0) {  // if char == 'n'
+        // if char == 'n'
+        if (strcmp(buffer, "n") == 0) {  
             fscanf(open_file, "%s", buffer);
             printf("n is %s\n", buffer);
+        }
+
+        // if char == 'm'
+        if (strcmp(buffer, "m") == 0) {
+            fscanf(open_file, "%s", buffer);
+            printf("m is %s\n", buffer);
         }
     }
 }
