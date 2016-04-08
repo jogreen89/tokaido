@@ -3,15 +3,14 @@
 
 int main(int argc, char **argv) {
     char *filename;
+    // Check for input FILE path
     if (argc < 2) {
         printf("Usage: bankers input_file\n");
         return 0;
     }
-
+    
+    // Handle File I/O
     filename = argv[1];
-
-    printRead(); 
-    printOP();
-    printInFile(filename);
     readInFile(filename);
+    return 0;
 }
