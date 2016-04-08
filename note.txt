@@ -6,3 +6,4 @@ Now configuring gpg on windows.
 Didn't working this time in Powershell.
 Things are really messed up.
 But then I unverified the mbp settings. Setting them up now.
+Realized that mbp didn't have ssh settings working.
