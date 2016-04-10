@@ -21,8 +21,8 @@ void printInFile(char *c) {
 
 void readInFile(char *c) {
     char buffer[BUFFER_SIZE];
-    int n = 0, m = 0, i = 0, j = 0;
     FILE *open_file;
+    int n = 0, m = 0, i = 0, j = 0, k = 0;
 
     open_file = fopen(c, "r");
     
@@ -31,23 +31,27 @@ void readInFile(char *c) {
         if (strcmp(buffer, "n") == 0) {  
             fscanf(open_file, "%s", buffer);
             printf("n\n%s\n", buffer);
-            n = atoi(buffer);
+            n = atoi(buffer);              // the number of processes
         }
 
         // if char == 'm'
         if (strcmp(buffer, "m") == 0) {
             fscanf(open_file, "%s", buffer);
             printf("m\n%s\n", buffer);
-            m = atoi(buffer);
+            m = atoi(buffer);              // the number of resources
         }
         
         // if char == 'Available'
         if (strcmp(buffer, "Available") == 0) {
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
+            // and create available[row][col]
+            int *available = new int[m];
             for (i = 0; i < m; i++) {
                 fscanf(open_file, "%s", buffer);
                 printf("%s ", buffer);
+                k = atoi(buffer);
+                available[i] = k;
             }
             i = 0;
             printf("\n");
