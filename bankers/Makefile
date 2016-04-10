@@ -2,7 +2,7 @@
 CC = g++ 
 CFLAGS = -g
 SOURCES = bankers.cpp
-EXECUTABLE = bankers 
+EXECUTABLE = bankers
 
 all:
 	$(CC) $(SOURCES) -o $(EXECUTABLE) $(CFLAGS)

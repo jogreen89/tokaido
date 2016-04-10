@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <cstring>
 
+#include "simulation.h"
+
 #define BUFFER_SIZE 100
 
 void printRead(void);
@@ -20,69 +22,73 @@ void printInFile(char *c) {
 }
 
 void readInFile(char *c) {
-    char buffer[BUFFER_SIZE];
     FILE *open_file;
+    char buffer[BUFFER_SIZE];
     int n = 0, m = 0, i = 0, j = 0, k = 0;
+    Simulation s;
 
     open_file = fopen(c, "r");
     
     while (fscanf(open_file, "%s", buffer) != EOF) {
-        // if char == 'n'
+
+        // reader finds 'n', the number of processes 
         if (strcmp(buffer, "n") == 0) {  
             fscanf(open_file, "%s", buffer);
-            printf("n\n%s\n", buffer);
-            n = atoi(buffer);              // the number of processes
+            n = atoi(buffer);                   // the number of processes
+            s.n = n;
+            printf("n\n%d\n", s.n);
         }
 
-        // if char == 'm'
+        // reader finds 'm', the number of resources 
         if (strcmp(buffer, "m") == 0) {
             fscanf(open_file, "%s", buffer);
-            printf("m\n%s\n", buffer);
-            m = atoi(buffer);              // the number of resources
+            m = atoi(buffer);                   // the number of resources
+            s.m = m;
+            printf("m\n%d\n", s.m);
+            printSimulation(&s);
         }
-        
-        // if char == 'Available'
+
+        // reader finds 'Available', the Available resources
         if (strcmp(buffer, "Available") == 0) {
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
-            // and create available[row][col]
-            int *available = new int[m];
             for (i = 0; i < m; i++) {
                 fscanf(open_file, "%s", buffer);
-                printf("%s ", buffer);
                 k = atoi(buffer);
-                available[i] = k;
+                printf("%d ", k); 
             }
-            i = 0;
+            i = 0, k = 0;
             printf("\n");
         }
         
-        // if char == 'Allocation'
+        // reader finds 'Allocation', the Allocation matrix[n][m] 
         if (strcmp(buffer, "Allocation") == 0) {
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
                 for (j = 0; j < m; j++) {
                     fscanf(open_file, "%s", buffer);
-                    printf("%s ", buffer);
+                    k = atoi(buffer);
+                    printf("%d ", k);
                 }
                 printf("\n");
             }
-            i = 0, j = 0;
+            i = 0, j = 0, k = 0;
         }
         
-        // if char == 'Max'
+        // reader finds 'Max', the Max matrix[n][m] 
         if (strcmp(buffer, "Max") == 0) {
             printf("%s\n", buffer);        
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
                 for (j = 0; j < m; j++) {
                     fscanf(open_file, "%s", buffer);
-                    printf("%s ", buffer);
+                    k = atoi(buffer);
+                    printf("%d ", k);
                 }
                 printf("\n");
             }
-            i = 0, j = 0;
+            i = 0, j = 0, k = 0;
         }
     }
 }
