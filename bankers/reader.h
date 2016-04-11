@@ -24,7 +24,7 @@ void printInFile(char *c) {
 
 void readInFile(char *c) {
     FILE *open_file;
-    int *res; 
+    int *res, *temp;
     char buffer[BUFFER_SIZE];
     int n = 0, m = 0, i = 0, j = 0, k = 0;
     Simulation s;
@@ -65,7 +65,7 @@ void readInFile(char *c) {
         
         // reader finds 'Allocation', the Allocation matrix[n][m] 
         if (strcmp(buffer, "Allocation") == 0) {
-            res = new (std::nothrow) int[m];
+            temp = new (std::nothrow) int[m];
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
@@ -77,7 +77,7 @@ void readInFile(char *c) {
                 printf("\n");
             }
             i = 0, j = 0, k = 0;
-            s = setAllocation(&s, res);
+            s = setAllocation(&s, temp);
         }
         
         // reader finds 'Max', the Max matrix[n][m] 
