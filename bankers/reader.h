@@ -1,9 +1,10 @@
 #ifndef READER_H
 #define READER_H
 
+// C library
 #include <stdio.h>
 #include <stdlib.h>
-#include <cstring>
+#include <string.h>
 
 #include "simulation.h"
 
@@ -23,6 +24,7 @@ void printInFile(char *c) {
 
 void readInFile(char *c) {
     FILE *open_file;
+    int *res; 
     char buffer[BUFFER_SIZE];
     int n = 0, m = 0, i = 0, j = 0, k = 0;
     Simulation s;
@@ -31,38 +33,39 @@ void readInFile(char *c) {
     
     while (fscanf(open_file, "%s", buffer) != EOF) {
 
-        // reader finds 'n', the number of processes 
-        if (strcmp(buffer, "n") == 0) {  
+        if (strcmp(buffer, "n") == 0) {         // reader finds 'n', the number of processes 
             fscanf(open_file, "%s", buffer);
             n = atoi(buffer);                   // the number of processes
-            s.n = n;
-            printf("n\n%d\n", s.n);
+            s._n = n;
+            printf("n\n%d\n", s._n);
         }
 
-        // reader finds 'm', the number of resources 
-        if (strcmp(buffer, "m") == 0) {
+        if (strcmp(buffer, "m") == 0) {         // reader finds 'm', the number of resources
             fscanf(open_file, "%s", buffer);
             m = atoi(buffer);                   // the number of resources
-            s.m = m;
-            printf("m\n%d\n", s.m);
-            printSimulation(&s);
+            s._m = m;
+            printf("m\n%d\n", s._m);
         }
 
         // reader finds 'Available', the Available resources
         if (strcmp(buffer, "Available") == 0) {
+            res = new (std::nothrow) int[m];
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < m; i++) {
                 fscanf(open_file, "%s", buffer);
                 k = atoi(buffer);
                 printf("%d ", k); 
+                res[i] = k;
             }
             i = 0, k = 0;
             printf("\n");
+            s = setAvailable(&s, res);
         }
         
         // reader finds 'Allocation', the Allocation matrix[n][m] 
         if (strcmp(buffer, "Allocation") == 0) {
+            res = new (std::nothrow) int[m];
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
@@ -74,6 +77,7 @@ void readInFile(char *c) {
                 printf("\n");
             }
             i = 0, j = 0, k = 0;
+            s = setAllocation(&s, res);
         }
         
         // reader finds 'Max', the Max matrix[n][m] 
