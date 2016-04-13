@@ -48,9 +48,9 @@ Simulation setAllocation(Simulation *s, int *res) {
     int len = s->_n;
     for (int i = 0; i < len; i++) {
         allocation[i] = new (std::nothrow) int[s->_m];
-        //s->_allocation[i] = allocation[i];
+        
+    //s->_allocation[i] = allocation[i];
     }
-
     return *s;
 }
 
