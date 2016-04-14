@@ -45,10 +45,9 @@ Simulation setAllocation(Simulation *s, int *res) {
     printf("Set Allocation.\n");
     printf("new (std::nothrow) int[s->_n][s->_m]: n-%d m-%d\n", s->_n, s->_m);
     
-    int len = s->_n;
+    int len = s->_n * s->_m;
     for (int i = 0; i < len; i++) {
         s->_allocation[i] = new (std::nothrow) int[s->_m];
-        s->_allocation[i] = &res[i];
         printf("s->_allocation[%d] : %d\n", i, *s->_allocation[i]);
     }
     return *s;
