@@ -40,22 +40,17 @@ Simulation setAvailable(Simulation *s, int *res) {
 }
 
 Simulation setAllocation(Simulation *s, int *res) {
-    int **allocation = new (std::nothrow) int*[s->_n];
+    s->_allocation = new (std::nothrow) int*[s->_n];
 
     printf("Set Allocation.\n");
     printf("new (std::nothrow) int[s->_n][s->_m]: n-%d m-%d\n", s->_n, s->_m);
-
-    allocation[0] = new (std::nothrow) int[s->_m];
-    // s->_allocation = allocation[0];
     
-    /*
-        int len = s->_n;
-        for (int i = 0; i < len; i++) {
-            allocation[i] = new (std::nothrow) int[s->_m];
-            allocation[i] = res[i];
-            // printf("s->_allocation[i] : %d\n", s->_allocation[i]);
-        }
-    */
+    int len = s->_n;
+    for (int i = 0; i < len; i++) {
+        s->_allocation[i] = new (std::nothrow) int[s->_m];
+        s->_allocation[i] = &res[i];
+        printf("s->_allocation[%d] : %d\n", i, *s->_allocation[i]);
+    }
     return *s;
 }
 

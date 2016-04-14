@@ -65,7 +65,8 @@ void readInFile(char *c) {
         
         // reader finds 'Allocation', the Allocation matrix[n][m] 
         if (strcmp(buffer, "Allocation") == 0) {
-            temp = new (std::nothrow) int[m];
+            int count = 0;
+            temp = new (std::nothrow) int[n*m];
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
@@ -73,11 +74,13 @@ void readInFile(char *c) {
                     fscanf(open_file, "%s", buffer);
                     k = atoi(buffer);
                     printf("%d ", k);
+                    temp[count] = k;
+                    count++;
                 }
                 printf("\n");
             }
             i = 0, j = 0, k = 0;
-            s = setAllocation(&s, temp);
+            s = setAllocation(&s, &temp[0]);
         }
         
         // reader finds 'Max', the Max matrix[n][m] 
