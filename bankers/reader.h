@@ -24,7 +24,7 @@ void printInFile(char *c) {
 
 void readInFile(char *c) {
     FILE *open_file;
-    int *res, *temp;
+    int *res, *allo_temp, *max_temp;
     char buffer[BUFFER_SIZE];
     int n = 0, m = 0, i = 0, j = 0, k = 0;
     Simulation s;
@@ -65,8 +65,8 @@ void readInFile(char *c) {
         
         // reader finds 'Allocation', the Allocation matrix[n][m] 
         if (strcmp(buffer, "Allocation") == 0) {
-            int count = 0;
-            temp = new (std::nothrow) int[n*m];
+            int allo_count = 0;
+            allo_temp = new (std::nothrow) int[n*m];
             printf("%s\n", buffer);
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
@@ -74,17 +74,19 @@ void readInFile(char *c) {
                     fscanf(open_file, "%s", buffer);
                     k = atoi(buffer);
                     printf("%d ", k);
-                    temp[count] = k;
-                    count++;
+                    allo_temp[allo_count] = k;
+                    allo_count++;
                 }
                 printf("\n");
             }
             i = 0, j = 0, k = 0;
-            s = setAllocation(&s, &temp[0]);
+            s = setAllocation(&s, &allo_temp[0]);
         }
         
         // reader finds 'Max', the Max matrix[n][m] 
         if (strcmp(buffer, "Max") == 0) {
+            int max_count = 0;
+            max_temp = new (std::nothrow) int[n*m];
             printf("%s\n", buffer);        
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
@@ -92,10 +94,13 @@ void readInFile(char *c) {
                     fscanf(open_file, "%s", buffer);
                     k = atoi(buffer);
                     printf("%d ", k);
+                    max_temp[max_count] = k;
+                    max_count++;
                 }
                 printf("\n");
             }
             i = 0, j = 0, k = 0;
+            s = setMax(&s, &max_temp[0]);
         }
     }
 }

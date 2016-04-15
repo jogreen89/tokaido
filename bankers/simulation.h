@@ -30,28 +30,24 @@ Simulation setAvailable(Simulation *s, int *res) {
 }
 
 Simulation setAllocation(Simulation *s, int *res) {
-    s->_allocation = new (std::nothrow) int*[s->_n];
-
     printf("Set Allocation.\n");
+
+    for (int i = 0; i < s->_n; i++) 
+        s->_allocation = new (std::nothrow) int*[s->_n];
+        for (int j = 0; j < s->_m; j++) 
+            s->_allocation[i] = new (std::nothrow) int[s->_m];
     
-    int len = s->_n * s->_m;
-    for (int i = 0; i < len; i++) {
-        s->_allocation[i] = new (std::nothrow) int[s->_m];
-        printf("s->_allocation[%d] : %d\n", i, *s->_allocation[i]);
-    }
     return *s;
 }
 
 Simulation setMax(Simulation *s, int *res) {
-    s->_max = new (std::nothrow) int*[s->_n];
-
     printf("Set Max.\n");
-    
-    int len = s->_n * s->_m;
-    for (int i = 0; i < len; i++) {
-        s->_max[i] = new (std::nothrow) int[s->_m];
-        printf("s->_max[%d] : %d\n", i, *s->_max[i]);
-    }
+
+    for (int i = 0; i < s->_n; i++)
+        s->_allocation = new (std::nothrow) int*[s->_n];
+        for (int j = 0; j < s->_m; j++)
+            s->_allocation[i] = new (std::nothrow) int[s->m];
+
     return *s;
 }
 
