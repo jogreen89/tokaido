@@ -12,24 +12,14 @@ struct Simulation {
     int** _max;
 };
 
-void printSimulationSize(Simulation*);
 Simulation setAvailable(Simulation*, int*);
 Simulation setAllocation(Simulation*, int*);
-Simulation setMax(Simulation*,int*);
-
-void printSimulationSize(Simulation *s) {
-    printf("Print Simulation Size.\n");
-    printf("Number of n processes: %d Number of m resources: %d\n", s->_n, s->_m);
-}
+Simulation setMax(Simulation*, int*);
 
 Simulation setAvailable(Simulation *s, int *res) {
-    int *available;
+    s->_available = new (std::nothrow) int[s->_m]; 
 
     printf("Set Available.\n");
-    printf("new (std::nothrow) int[s->_m]: %d\n", s->_m);
-
-    available = new (std::nothrow) int[s->_m];
-    s->_available = available;
 
     int len = s->_m;
     for (int i = 0; i < len; i++) {
@@ -43,12 +33,24 @@ Simulation setAllocation(Simulation *s, int *res) {
     s->_allocation = new (std::nothrow) int*[s->_n];
 
     printf("Set Allocation.\n");
-    printf("new (std::nothrow) int[s->_n][s->_m]: n-%d m-%d\n", s->_n, s->_m);
     
     int len = s->_n * s->_m;
     for (int i = 0; i < len; i++) {
         s->_allocation[i] = new (std::nothrow) int[s->_m];
         printf("s->_allocation[%d] : %d\n", i, *s->_allocation[i]);
+    }
+    return *s;
+}
+
+Simulation setMax(Simulation *s, int *res) {
+    s->_max = new (std::nothrow) int*[s->_n];
+
+    printf("Set Max.\n");
+    
+    int len = s->_n * s->_m;
+    for (int i = 0; i < len; i++) {
+        s->_max[i] = new (std::nothrow) int[s->_m];
+        printf("s->_max[%d] : %d\n", i, *s->_max[i]);
     }
     return *s;
 }
