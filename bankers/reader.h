@@ -37,29 +37,33 @@ void readInFile(char *c) {
             fscanf(open_file, "%s", buffer);
             n = atoi(buffer);                   // the number of processes
             s._n = n;
-            printf("n\n%d\n", s._n);
+            // printf("n\n%d\n", s._n);
         }
 
         if (strcmp(buffer, "m") == 0) {         // reader finds 'm', the number of resources
             fscanf(open_file, "%s", buffer);
             m = atoi(buffer);                   // the number of resources
             s._m = m;
-            printf("m\n%d\n", s._m);
+            // printf("m\n%d\n", s._m);
         }
 
         // reader finds 'Available', the Available resources
         if (strcmp(buffer, "Available") == 0) {
             res = new (std::nothrow) int[m];
-            printf("%s\n", buffer);
+
+            // printf("%s\n", buffer);
+
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < m; i++) {
                 fscanf(open_file, "%s", buffer);
                 k = atoi(buffer);
-                printf("%d ", k); 
+
+                // printf("%d ", k); 
+
                 res[i] = k;
             }
             i = 0, k = 0;
-            printf("\n");
+            // printf("\n");
             s = setAvailable(&s, res);
         }
         
@@ -67,17 +71,21 @@ void readInFile(char *c) {
         if (strcmp(buffer, "Allocation") == 0) {
             int allo_count = 0;
             allo_temp = new (std::nothrow) int[n*m];
-            printf("%s\n", buffer);
+
+            // printf("%s\n", buffer);
+
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
                 for (j = 0; j < m; j++) {
                     fscanf(open_file, "%s", buffer);
                     k = atoi(buffer);
-                    printf("%d ", k);
+
+                    // printf("%d ", k);
+
                     allo_temp[allo_count] = k;
                     allo_count++;
                 }
-                printf("\n");
+                // printf("\n");
             }
             i = 0, j = 0, k = 0;
             s = setAllocation(&s, &allo_temp[0]);
@@ -87,17 +95,21 @@ void readInFile(char *c) {
         if (strcmp(buffer, "Max") == 0) {
             int max_count = 0;
             max_temp = new (std::nothrow) int[n*m];
-            printf("%s\n", buffer);        
+
+            // printf("%s\n", buffer);        
+
             // Get resources [row][col] -- [n][m]
             for (i = 0; i < n; i++) {
                 for (j = 0; j < m; j++) {
                     fscanf(open_file, "%s", buffer);
                     k = atoi(buffer);
-                    printf("%d ", k);
+
+                    // printf("%d ", k);
+
                     max_temp[max_count] = k;
                     max_count++;
                 }
-                printf("\n");
+                // printf("\n");
             }
             i = 0, j = 0, k = 0;
             s = setMax(&s, &max_temp[0]);
