@@ -4,7 +4,6 @@
 // built-in history function similar to the UNIX 
 // equivalent.
 // (c) 2016 zubernetes
-
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
