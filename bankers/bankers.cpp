@@ -1,3 +1,8 @@
+// bankers.cpp
+// 
+// A C++ implementation of the Bankers
+// Algorithm for a simulation of 
+// process-resource allocation.
 #include "reader.h"
 #include "operations.h"
 
