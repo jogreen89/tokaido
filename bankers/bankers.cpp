@@ -1,14 +1,13 @@
 // bankers.cpp
-// 
 // A C++ implementation of the Bankers
-// Algorithm for a simulation of 
+// Algorithm for a simulation of
 // process-resource allocation.
 #include "reader.h"
 #include <iostream>
 #include <string>
 
-#define CMDLINE 2 
-#define BUF_SIZE 50 
+#define CMDLINE 2
+#define BUF_SIZE 50
 
 void print_simulation(Simulation*);
 void print_need(Simulation*);
@@ -19,29 +18,21 @@ int main (int argc, char **argv) {
     _Bool deadlock;
     bool run = false;
     char action[BUF_SIZE], *filename, *request_v;
-    struct Simulation *s;       // Bankers Simulation 
+    struct Simulation *s;
     std::string str = " ";
 
-    // Check for input FILE path
-    if (argc < CMDLINE || argc > CMDLINE) {
-        std::cout << "Usage: bankers input_file" << std::endl;
-        return 0;
+    if (argc < 2) {
+      std::cout << "Usage: banker [inputFile]" << std::endl;
+      return 1;
     }
-    
-    // Handle File I/O
+
     filename = argv[1];
-
-    // Create Bankers Simulation object  
     s = readInFile(filename);
-
-    // Report 'input_file' 
-    print_simulation(s);
+    print_simulation(readInFile(filename));
 
     while (deadlock) {
-        // Run Bankers Algorithm
         deadlock = safety_algorithm(s, (char*)str.c_str(), run);
-        
-        // If there isn't a deadlock, prompt for a Request
+
         if (deadlock) {
             int request_len = s->_m;
             int input = 0;
@@ -56,15 +47,15 @@ int main (int argc, char **argv) {
             }
             else
                 break;
-        } 
-    } 
+        }
+    }
     free(s);
 
     return 0;
 }
 
 void print_need(Simulation *s) {
-   int i, j; 
+   int i, j;
 
     std::cout << "Need:" << std::endl;
     for (i = 0; i < s->_n; i++) {
@@ -79,7 +70,7 @@ void print_simulation(Simulation *s) {
     int i, j;
 
     std::cout << "Available:" << std::endl;
-    for (i = 0; i < s->_m; i++) { 
+    for (i = 0; i < s->_m; i++) {
         std::cout << s->_available[i] << "\t";
     }
     std::cout << std::endl;
@@ -119,22 +110,22 @@ int safety_algorithm(Simulation *s, char *request, bool run) {
     // Initialization of alloc[], the currently allocated resources.
     for (i = 0; i < r; i++)
         alloc[i] = 0;
-        
-    // Setup Available Table 
+
+    // Setup Available Table
     for (i = 0; i < r; i++) {
         available[i] = s->_available[i];
     }
 
-    // Setup Resource Table 
+    // Setup Resource Table
     for (i = 0; i < p; i++) {
         for (j = 0; j < r; j++) {
-            allocation[i][j] = s->_allocation[i][j]; 
+            allocation[i][j] = s->_allocation[i][j];
         }
     }
 
     // If a Request Edge is made, modify Allocation Table
     // for the process making a new request.
-    if (run) {  
+    if (run) {
         int pid;
         int res = 0;
         int i = 0;
@@ -143,12 +134,12 @@ int safety_algorithm(Simulation *s, char *request, bool run) {
             std::cout << request[i] << std::endl;
             if (i == 0) {
                 pid = atoi(&request[i]);
-            }                
+            }
 
             if (request[i] != ' ') {
                 res = atoi(&request[i]);
-               if (allocation[pid][i-1] > request[i]) 
-                    allocation[pid][i-1] = allocation[pid][i-1] - res; 
+               if (allocation[pid][i-1] > request[i])
+                    allocation[pid][i-1] = allocation[pid][i-1] - res;
                else
                     allocation[pid][i-1] = res - allocation[pid][i-i];
             }
@@ -156,12 +147,12 @@ int safety_algorithm(Simulation *s, char *request, bool run) {
         }
     }
 
-    // Setup Max Table 
+    // Setup Max Table
     for (i = 0; i < p; i++) {
         for (j = 0; j < r; j++) {
             max[i][j] = s->_max[i][j];
         }
-    } 
+    }
 
     // Setup "Currently" Allocated Table
     for (i = 0; i < p; i++) {
@@ -179,7 +170,7 @@ int safety_algorithm(Simulation *s, char *request, bool run) {
                     if (max[i][j] - allocation[i][j] > available[j]) {
                         exec = 0;
                         break;
-                    } 
+                    }
                 }
 
                 if (exec) {
@@ -202,19 +193,19 @@ int safety_algorithm(Simulation *s, char *request, bool run) {
                 deadlock = 0;
             }
             break;
-        } 
+        }
     }
     if (deadlock) {
         std::cout << "we are safe!" << std::endl;
         std::cout << "Safe sequence: <";
         for (i = 0; i < p; i++) {
-            if (i == p - 1) 
+            if (i == p - 1)
                 std::cout << "P" << safe_sequence[i];
-            else 
+            else
                 std::cout << "P" << safe_sequence[i] << ", ";
         }
         std::cout << ">" << std::endl;
         return 1;
-    } else 
+    } else
         return 0;
 }

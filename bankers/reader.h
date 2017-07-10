@@ -1,12 +1,9 @@
 // reader.h
-// 
-// A simple FILE I/O reader mostly
-// written in C for Bankers Algorithm
-// data file processing.
+//
+// Bankers configuration reader
 #ifndef READER_H
 #define READER_H
 
-// C Library
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,9 +22,9 @@ Simulation* readInFile(char *c) {
     int n = 0, m = 0, i = 0, j = 0, k = 0, pos = 0;
     struct Simulation *s;
     s = (struct Simulation*) malloc(sizeof(Simulation));
-    
-    open_file = fopen(c, "r"); 
-    
+
+    open_file = fopen(c, "r");
+
     while (fscanf(open_file, "%s", buffer) != EOF) {
         if (strcmp(buffer, "n") == 0) {
             fscanf(open_file, "%s", buffer);
@@ -40,7 +37,7 @@ Simulation* readInFile(char *c) {
             m = atoi(buffer);
             s->_m = m;
         }
-    
+
         if (strcmp(buffer, "Available") == 0) {
             s->_available = (int*) malloc(sizeof(s->_m));
             for (i = 0; i < s->_m; i++) {
@@ -57,7 +54,7 @@ Simulation* readInFile(char *c) {
             for (i = 0; i <= s->_n; i++) {
                 s->_allocation[i] = (int*) malloc(sizeof(s->_m)*s->_m);
                 s->_max[i] = (int*) malloc(sizeof(s->_m)*s->_m);
-            } 
+            }
 
             i = 0;
             for (j = 0; j < (s->_n * s->_m); j++) {
